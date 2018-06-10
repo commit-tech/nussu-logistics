@@ -59,11 +59,29 @@ class DutiesController < ApplicationController
         swap_user(params[:user_id].to_i, duty)
       end
 
+      group_duties(duty_ids).each do |grouped_duty|
+        drop_mail(params[:user_id].to_i, grouped_duty)
+      end
+
       redirect_to duties_path, notice: 'Duty successfully dropped!'
     else
       redirect_to duties_path, alert: 'Error in dropping duty! ' \
         'Please try again.'
     end
+  end
+
+  def group_duties(duty_id_list)
+    duty_list = Duty.find(duty_id_list).map{ |duty| {start_time: duty.time_range.start_time, 
+      :end_time => duty.time_range.end_time, date: duty.date, place: duty.place.name}}
+    result = [duty_list[0]]
+    (1..duty_list.length - 1).each do |i|
+      if (result[result.length - 1][:end_time] <=> duty_list[i][:start_time]) == 0
+        result[result.length - 1][:end_time] = duty_list[i][:end_time]
+      else
+        result.push(duty_list[i])
+      end
+    end
+    result
   end
 
   private
@@ -82,14 +100,20 @@ class DutiesController < ApplicationController
     end
   end
 
+  def drop_mail(user_id, drop_duty)
+    if user_id.zero?
+      GenericMailer.drop_duty(drop_duty, User.pluck(:id))
+    else
+      GenericMailer.drop_duty(drop_duty, user_id)
+                   .deliver_later
+    end
+  end
+
   def swap_user(swap_user_id, drop_duty)
     if swap_user_id.zero?
       drop_duty.update(free: true)
-      GenericMailer.drop_duty(drop_duty, User.pluck(:id)).deliver_later
     else
       drop_duty.update(request_user_id: swap_user_id)
-      GenericMailer.drop_duty(drop_duty, swap_user_id)
-                   .deliver_later
     end
   end
 

@@ -19,10 +19,10 @@ class GenericMailer < ApplicationMailer
 
   def generate_drop_duty_subject(duty)
     'DUTY DUTY DUTY ' \
-    "#{duty.time_range.start_time.strftime('%H%M')}-" \
-    "#{duty.time_range.end_time.strftime('%H%M')} on " \
-    "#{duty.date.strftime('%a, %d %b %Y')} at " \
-    "#{duty.place.name}"
+    "#{duty[:start_time].strftime('%H%M')}-" \
+    "#{duty[:end_time].strftime('%H%M')} on " \
+    "#{duty[:date].strftime('%a, %d %b %Y')} at " \
+    "#{duty[:place]}"
   end
 
   def users_with_name(user_ids)
