@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -21,10 +20,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :string
-#  matric_num             :string
 #  contact_num            :string
-#  cell                   :integer          not null
-#  mc                     :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -34,7 +30,7 @@
 #
 
 class User < ApplicationRecord
-  CELLS = %i[marketing presidential publicity technical training welfare]
+  FAKENAMES = %i[Alice Bob Cyndia Dylan Eric]
           .freeze
 
   rolify
@@ -45,16 +41,4 @@ class User < ApplicationRecord
   has_many :duties, dependent: :nullify
   has_many :timeslots, foreign_key: :default_user_id, inverse_of: :default_user,
                        dependent: :nullify
-
-  has_many :reported_problem_reports, class_name: 'ProblemReport',
-                                      foreign_key: 'reporter_user_id',
-                                      inverse_of: :reporter_user,
-                                      dependent: :nullify
-  has_many :last_updated_problem_reports, class_name: 'ProblemReport',
-                                          foreign_key: 'last_update_user_id',
-                                          inverse_of: :last_update_user,
-                                          dependent: :nullify
-  validates :cell, presence: true
-
-  enum cell: CELLS
 end

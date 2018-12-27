@@ -32,8 +32,8 @@ h1 {
 
 .schedule-container {
   width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
+  display: -webkit-box;
+  //flex-wrap: nowrap;
   padding-top: 20px;
 }
 
@@ -64,7 +64,7 @@ td.schedule-timings {
 }
 
 .schedule-right {
-  flex-grow: 100;
+  //flex-grow: 100;
 }
 
 .schedule-name {

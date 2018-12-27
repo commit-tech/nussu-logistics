@@ -7,7 +7,6 @@ class DutiesController < ApplicationController
                   .to_date
     @end_date = @start_date.to_date + 6.days
     @places = Place.all
-    prepare_announcements
   end
 
   def generate_duties
@@ -120,12 +119,8 @@ class DutiesController < ApplicationController
   def generate_header_iter
     time_range = TimeRange.order(:start_time)
     first_time = time_range.first.start_time
-    last_time = time_range.last.start_time
+    last_time = time_range.last.end_time - 1.hour #Hardcoded
     first_time.to_i.step(last_time.to_i, 1.hour)
   end
 
-  def prepare_announcements
-    @announcements = Announcement.order(created_at: :desc).limit(3)
-    @new_announcement = Announcement.new
-  end
 end

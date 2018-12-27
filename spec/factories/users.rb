@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -21,10 +20,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :string
-#  matric_num             :string
 #  contact_num            :string
-#  cell                   :integer          not null
-#  mc                     :boolean          default(FALSE), not null
 #
 # Indexes
 #
@@ -41,6 +37,5 @@ FactoryBot.define do
   factory :user do
     email
     password '123456'
-    cell User::CELLS.sample
   end
 end

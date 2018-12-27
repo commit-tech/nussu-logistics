@@ -19,7 +19,6 @@ html, body {
 
 @import 'colors';
 @import 'login';
-@import 'announcements';
 @import 'users';
 @import 'user_profile';
 @import 'edit_profile';
@@ -27,8 +26,6 @@ html, body {
 @import 'allocate_role';
 @import 'duties';
 @import 'availabilities';
-@import 'announcements';
-@import 'problem_reports';
 
 body[no-nav] nav {
   display: none;

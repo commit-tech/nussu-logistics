@@ -19,13 +19,6 @@
 
                 <div class="field">
                   <tr>
-                    <th><%= f.label :matric_num %></th>
-                    <td><%= f.text_field :matric_num %></td>
-                  </tr>
-                </div>
-
-                <div class="field">
-                  <tr>
                     <th><%= f.label :contact_num %></th>
                     <td><%= f.text_field :contact_num, :type => "number" %></td>
                   </tr>
@@ -35,20 +28,6 @@
                   <tr>
                     <th><%= f.label :email %></th>
                     <td><%= f.email_field :email, :required => true, :type => "email" %></td>
-                  </tr>
-                </div>
-
-                <div class="field">
-                  <tr>
-                    <th><%= f.label :cell %></th>
-                    <td><%= f.select(:cell, options_for_select(User::CELLS.map { |c| [c.capitalize, c] }), {:class => 'form-control'}) %>
-                  </tr>
-                </div>
-
-                <div class="field">
-                  <tr>
-                    <th><%= f.label :mc %></th>
-                    <td><%= f.select(:mc, options_for_select(["true", "false"]), {:class => 'form-control'}) %>
                   </tr>
                 </div>
 

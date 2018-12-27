@@ -13,71 +13,32 @@
 
 # Admin User
 admin = User.create(username: 'admin', email: 'admin@example.com',
-                    password: '123456', cell: :presidential, mc: true)
+                    password: '123456')
 admin.add_role :admin
 
-User::CELLS.each do |c|
+User::FAKENAMES.each do |c|
   8.times do |i|
     user = User.create(username: "#{c}#{i}", email: "#{c}#{i}@example.com",
-                       password: '123456', cell: c)
-    user.update(mc: true) if i.zero?
+                       password: '123456')
   end
 end
 
 User.create(username: 'test', email: 'test@example.com', password: '123456')
 
-Place.create(name: 'YIH')
-Place.create(name: 'AS8')
+Place.create(name: 'NUSSU Lounge')
 
-('08:00'.in_time_zone.to_i..'09:30'.in_time_zone.to_i)
-  .step(30.minutes).each do |time|
+('12:00'.in_time_zone.to_i..'16:00'.in_time_zone.to_i)
+  .step(2.hours).each do |time|
   start = Time.zone.at(time)
-  TimeRange.create(start_time: start, end_time: start + 30.minutes)
-end
-('10:00'.in_time_zone.to_i..'20:00'.in_time_zone.to_i)
-  .step(1.hour).each do |time|
-  start = Time.zone.at(time)
-  TimeRange.create(start_time: start, end_time: start + 1.hour)
+  TimeRange.create(start_time: start, end_time: start + 2.hours)
 end
 
 # Timeslots in YIH
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
-    mc = nil
-    open = tr.start_time.in_time_zone.strftime('%H%M')
-    close = tr.end_time.in_time_zone.strftime('%H%M')
-
-    if day == 'Sunday'
-      next if open < '0930' || close > '1500'
-      mc = (open == '0930' || close == '1500')
-    elsif day == 'Saturday'
-      next if open < '0830' || close > '1700'
-      mc = (open == '0830' || close == '1700')
-    else
-      next if open < '0830' || close > '2100'
-      mc = (open == '0830' || close == '2100')
-    end
-
-    Timeslot.create(mc_only: mc, day: day,
+    Timeslot.create(mc_only: false, day: day,
                     default_user: User.offset(rand(User.count)).first,
-                    time_range: tr, place: Place.find_by(name: 'YIH'))
-  end
-end
-
-# Timeslots in AS8
-Date::DAYNAMES.each do |day|
-  TimeRange.all.each do |tr|
-    mc = false
-    open = tr.start_time.in_time_zone.strftime('%H%M')
-    close = tr.end_time.in_time_zone.strftime('%H%M')
-
-    next if day == 'Sunday'
-    next if (day == 'Saturday') && (open < '0800' || close > '1700')
-    next if open < '0800' || close > '2100'
-
-    Timeslot.create(mc_only: mc, day: day,
-                    default_user: User.offset(rand(User.count)).first,
-                    time_range: tr, place: Place.find_by(name: 'AS8'))
+                    time_range: tr, place: Place.find_by(name: 'NUSSU Lounge'))
   end
 end
 
