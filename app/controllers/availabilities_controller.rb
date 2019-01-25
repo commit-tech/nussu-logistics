@@ -43,7 +43,7 @@ class AvailabilitiesController < ApplicationController
 
   def load_all_users
     User.all.map do |u|
-      [u.id, { username: u.username, mc: u.mc }]
+      [u.id, { username: u.username}]
     end.to_h
   end
 

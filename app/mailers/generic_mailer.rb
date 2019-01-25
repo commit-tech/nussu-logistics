@@ -3,10 +3,25 @@
 class GenericMailer < ApplicationMailer
   default from: %("NUSSU commIT" <duty@#{ENV['MAILGUN_DOMAIN']}>)
 
-  def drop_duty(duty, user_ids)
-    @duty = duty
-    mail(to: users_with_name(user_ids),
-         subject: generate_drop_duty_subject(duty))
+  def drop_duty(duty_ids, user_ids)
+    group_duties(duty_ids).each do |duty|
+      mail(to: users_with_name(user_ids),
+           subject: generate_drop_duty_subject(duty))
+    end
+  end
+
+  def group_duties(duty_id_list)
+    duty_list = Duty.find(duty_id_list).map{ |duty| {start_time: duty.time_range.start_time, 
+      :end_time => duty.time_range.end_time, date: duty.date, place: duty.place.name}}
+    result = [duty_list[0]]
+    (1..duty_list.length - 1).each do |i|
+      if (result[result.length - 1][:end_time] <=> duty_list[i][:start_time]) == 0
+        result[result.length - 1][:end_time] = duty_list[i][:end_time]
+      else
+        result.push(duty_list[i])
+      end
+    end
+    result
   end
 
   def problem_report(problem)
