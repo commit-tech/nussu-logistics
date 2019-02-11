@@ -2,6 +2,4 @@
 
 class StaticPagesController < ApplicationController
   def guide; end
-
-  def grab_duty; end
 end

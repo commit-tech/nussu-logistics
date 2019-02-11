@@ -49,6 +49,8 @@ gem 'schema_validations'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 # Mailgun
 gem 'mailgun-ruby', '~> 1.1.6'
+# Booking system
+gem 'acts_as_bookable'
 
 group :test do
   # Test coverage

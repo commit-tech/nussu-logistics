@@ -25,8 +25,6 @@ end
 
 User.create(username: 'test', email: 'test@example.com', password: '123456')
 
-Place.create(name: 'NUSSU Lounge')
-
 ('12:00'.in_time_zone.to_i..'16:00'.in_time_zone.to_i)
   .step(2.hours).each do |time|
   start = Time.zone.at(time)
@@ -36,10 +34,8 @@ end
 # Timeslots in YIH
 Date::DAYNAMES.each do |day|
   TimeRange.all.each do |tr|
-    Timeslot.create(mc_only: false, day: day,
+    Timeslot.create(day: day,
                     default_user: User.offset(rand(User.count)).first,
-                    time_range: tr, place: Place.find_by(name: 'NUSSU Lounge'))
+                    time_range: tr)
   end
 end
-
-Duty.generate(Time.zone.today - 7, Time.zone.today + 7)

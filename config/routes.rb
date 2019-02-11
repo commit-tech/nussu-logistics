@@ -1,22 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'duties#index'
-
-  resources :availabilities, only: [:index] do
-    collection do
-      put '/', to: 'availabilities#update_availabilities'
-      get '/show_everyone', to: 'availabilities#show_everyone'
-    end
-  end
-
-  namespace :duties do
-    resources :places, only: %i[index edit update]
-  end
-
-  namespace :availabilities do
-    resources :places, only: %i[index edit update]
-  end
+  root to: 'users#index'
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
@@ -28,16 +13,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :duties, only: [:index] do
-    collection do
-      post 'generate', to: 'duties#generate_duties'
-      post 'open_drop_modal', to: 'duties#open_drop_modal'
-      post 'open_grab_modal', to: 'duties#open_grab_modal'
-      post 'grab', to: 'duties#grab'
-      post 'drop', to: 'duties#drop'
-    end
-  end
-
   get 'guide', to: 'static_pages#guide'
-  get 'grab_duty', to: 'static_pages#grab_duty'
 end
