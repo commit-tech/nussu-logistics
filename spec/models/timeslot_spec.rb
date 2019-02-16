@@ -24,9 +24,7 @@
 require 'rails_helper'
 
 RSpec.describe Timeslot, type: :model do
-  it { should have_many(:duties) }
   it { should belong_to(:default_user).class_name('User') }
-  it { should belong_to(:place) }
   it { should belong_to(:time_range) }
   it { should define_enum_for(:day).with(Date::DAYNAMES) }
 end
