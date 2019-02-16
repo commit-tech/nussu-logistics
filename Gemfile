@@ -30,7 +30,7 @@ gem 'jquery-turbolinks'
 # Use Bootstrap, the CSS framework (getbootstrap.com)
 gem 'bootstrap'
 # Javascript interpreter
-gem 'therubyracer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 
 group :development do
   # Favicon set
