@@ -2,8 +2,11 @@
 
 Rails.application.routes.draw do
   root to: 'users#index'
-
+  # get 'users/new_user', to: 'registrations#new'
   devise_for :users, controllers: { registrations: 'registrations' }
+  devise_scope :user do
+    get "/users/new_public_user" => "registrations#public_new"
+  end
 
   resources :users, except: %i[create new] do
     member do
