@@ -1,1 +1,57 @@
-Test page
+# just a placeholder page for reference. To be deleted later.
+<div class="login">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <div class="password container">
+    <div class="row">
+      <div class="box col-sm-12 col-md-6 offset-md-3">
+        <div class="account-wall">
+          <h3>Sign up</h3>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="field">
+              <%= f.label :username %>
+              <%= f.text_field :username, autofocus: true, :required => true %>
+            </div>
+
+            <div class="field">
+              <%= f.label :contact_num %>
+              <%= f.text_field :contact_num, :type => "number" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :email %>
+              <%= f. label :email f.email_field :email, :required => true, :type => "email" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password %>
+              <%= f.password_field :password, autocomplete: "off", :placeholder => "6 characters minimum", :required => true %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password_confirmation %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder => "6 characters minimum", :required => true %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Sign up" %>
+            </div>
+          <% end %>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <p class="muted text-center col-sm-12 col-md-4 offset-md-4">Copyright &copy; 201x-201x NUSSU CommIT Technical Cell</p>
+    </div>
+  </div>
+
+  <% content_for :page_attributes do %>
+    no-nav
+  <% end %>
+
+</div>
