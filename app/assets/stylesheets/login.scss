@@ -33,7 +33,8 @@ div.alert.alert-danger {
     margin-bottom: 10px;
   }
 
-  input#user_username, input#user_email, input#user_password {
+  input#user_username, input#user_email, input#user_password, 
+  input#user_password_confirmation, input#user_contact_num {
     background-color: rgba(0, 0, 0, 0);
     border-top: none;
     border-left: none;
