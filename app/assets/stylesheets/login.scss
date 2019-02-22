@@ -116,6 +116,11 @@ div.alert.alert-danger {
     text-align: center;
   }
 
+  .register {
+    height: 400px;
+    overflow: auto;
+  }
+
   form#new_user.new_user {
     padding-left: 15%;
     padding-right: 15%;
