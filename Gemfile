@@ -28,7 +28,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 # Use Bootstrap, the CSS framework (getbootstrap.com)
-gem 'bootstrap'
+gem 'bootstrap', '>= 4.3.1'
 # Javascript interpreter
 gem 'mini_racer', platforms: :ruby
 
