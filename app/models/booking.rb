@@ -11,7 +11,15 @@
 #  updated_at  :datetime         not null
 #  quantity    :integer
 #  user_id     :integer
-# 
+#
+# Indexes
+#
+#  index_bookings_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 
 class Booking < ApplicationRecord
   STATUSES = %i[pending approved rejected].freeze

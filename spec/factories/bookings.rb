@@ -24,8 +24,9 @@
 FactoryBot.define do
   factory :booking do
     status { 1 }
+    quantity {100}
     description { "MyText" }
-    start_time { "2019-02-24 14:39:51" }
-    end_time { "2019-02-24 14:39:51" }
+    start_time { "2030-02-24 05:00:00" }
+    end_time { "2031-02-24 05:00:00" }
   end
 end

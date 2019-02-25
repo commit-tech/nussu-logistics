@@ -82,6 +82,10 @@ group :development, :test do
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   # Trace routes
   gem 'traceroute'
+  # Test Rendering of Page
+  gem 'rails-controller-testing'
+  # Test time-related features
+  gem 'timecop'
 end
 
 ### END UTILITIES
