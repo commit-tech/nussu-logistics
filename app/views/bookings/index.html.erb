@@ -1,0 +1,40 @@
+<div>
+  <h1> All Bookings </h1>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12 scrollable">
+          <table class="table">
+            <tr>
+              <th class="status">Status</th>
+              <th class="user">User</th>
+              <th class="quantity">Quantity</th>
+              <th class="desc">Description</th>
+              <th class="time">Start Time</th>
+              <th class="time">End Time</th>
+              <th class="empty"></th>
+              <th class="empty"></th>
+              <th class="empty"></th>
+            </tr>
+            <% @bookings.each do |b| %>
+              <tr>
+                <td class="status"><%= b.status %></td>
+                <td class="user"><%= User.find(b.user_id)&.username %></td>
+                <td class="quantity"><%= b.quantity %></td>
+                <td class="desc"><%= b.description %></td>
+                <td class="time"><%= b.start_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
+                <td class="time"><%= b.end_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
+                <td class="show"><%= link_to 'Show more', booking_path(b) %>
+                <td class="edit"><%= link_to 'Edit Booking', edit_booking_path(b) %>
+                <td class="destroy"><%= link_to 'Delet dis', booking_path(b), method: :delete %>
+              </tr>
+            <% end %>
+          </table>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= button_to("Make New Booking", new_booking_path, method: "get", class: "btn btn-info booking-btn inline") %></li>
+  </div>
+</div>

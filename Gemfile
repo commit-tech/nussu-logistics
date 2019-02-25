@@ -74,6 +74,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Rspec testing framework
   gem 'rspec-rails'
+  # Solve console not running
+  gem 'rb-readline'
   # Factory bot: factories for testing
   gem 'factory_bot_rails'
   # Shoulda Matchers: matchers for testing -- experimental gem for Rails 5

@@ -1,0 +1,34 @@
+<div class="booking-details">
+  <h1>Booking Details</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <table>
+          <tr>
+            <th class="status">Status</th>
+            <td class="status"><%= @booking.status %></td>
+          </tr>
+          <tr>
+            <th class="user">User</th>
+            <td class="user"><%= @booking.user.username %></td>
+          </tr>
+          <tr>
+            <th class="desc">Description</th>
+            <td class="desc"><%= @booking.description %></td>
+          </tr>
+          <tr>
+            <th class="time">Start Time</th>
+            <td class="time"><%= @booking.start_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
+          </tr>
+          <tr>
+            <th class="time">End Time</th>
+            <td class="time"><%= @booking.end_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
+          </tr>
+        </table>
+        <%= button_to "Edit Booking", edit_booking_path, method: "get" %>
+        <%= button_to "Delet dis", booking_path(@booking), method: "delete" %>
+      </div>
+    </div>
+  </div>
+</div>

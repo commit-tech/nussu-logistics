@@ -198,6 +198,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    rb-readline (0.5.5)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
@@ -356,6 +357,7 @@ DEPENDENCIES
   rails-erd
   rails_real_favicon (>= 0.0.7)
   rake
+  rb-readline
   rolify
   rspec-rails
   rubocop

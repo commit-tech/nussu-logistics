@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180329164621) do
+ActiveRecord::Schema.define(version: 20190225015743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "status"
+    t.text     "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at",  :null=>false
+    t.datetime "updated_at",  :null=>false
+    t.integer  "quantity"
+    t.integer  "user_id",     :index=>{:name=>"index_bookings_on_user_id", :using=>:btree}
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          :index=>{:name=>"index_roles_on_name_and_resource_type_and_resource_id", :with=>["resource_type", "resource_id"], :using=>:btree}
@@ -65,6 +76,7 @@ ActiveRecord::Schema.define(version: 20180329164621) do
     t.index ["user_id", "role_id"], :name=>"index_users_roles_on_user_id_and_role_id", :using=>:btree
   end
 
+  add_foreign_key "bookings", "users"
   add_foreign_key "timeslots", "time_ranges"
   add_foreign_key "timeslots", "users", column: "default_user_id"
 end
