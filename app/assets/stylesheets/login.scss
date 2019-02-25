@@ -34,7 +34,8 @@ div.alert.alert-danger {
   }
 
   input#user_username, input#user_email, input#user_password, 
-  input#user_password_confirmation, input#user_contact_num {
+  input#user_password_confirmation, input#user_contact_num,
+  input#user_cca {
     background-color: rgba(0, 0, 0, 0);
     border-top: none;
     border-left: none;

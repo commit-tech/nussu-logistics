@@ -9,6 +9,7 @@
           <tr>
             <th class="name">Name</th>
             <th class="contact">Contact number</th>
+            <th class="cca">CCA</th>
             <th class="email">E-mail</th>
 
             <% if can?(:show_full, User) %>
@@ -23,6 +24,7 @@
             <tr>
               <td class="name"><%= p.username %></td>
               <td class="contact"><%= p.contact_num %></td>
+              <td class="cca"><%= p.cca %></td>
               <td class="email"><%= p.email %></td>
               <% if can?(:show_full, User) %>
                 <td class="role"><%= link_to 'Allocate roles', allocate_roles_user_path(p) %></td>

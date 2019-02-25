@@ -19,6 +19,11 @@
             </div>
 
             <div class="field">
+              <%= f.label :cca %>
+              <%= f.text_field :cca%, :required => true %>
+            </div>
+
+            <div class="field">
               <%= f.label :email %>
               <%= f.email_field :email, :required => true, :type => "email" %>
             </div>
