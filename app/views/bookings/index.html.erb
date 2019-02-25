@@ -24,9 +24,35 @@
                 <td class="desc"><%= b.description %></td>
                 <td class="time"><%= b.start_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
                 <td class="time"><%= b.end_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
-                <td class="show"><%= link_to 'Show more', booking_path(b) %>
-                <td class="edit"><%= link_to 'Edit Booking', edit_booking_path(b) %>
-                <td class="destroy"><%= link_to 'Delet dis', booking_path(b), method: :delete %>
+                <td class="show"><%= link_to 'Show more', booking_path(b) %></td>
+                <td class="edit">
+                  <% if b.status == "pending" || can?(:show_full, User)%>
+                    <%= link_to 'Edit Booking', edit_booking_path(b) %>
+                  <% end %>  
+                </td>  
+                <% if can?(:show_full, User) %>
+                  <% if b.status == "approved" %>
+                    <td></td>
+                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                    <%= button_tag("Reject", name: 'status', value: :rejected,
+                      type: 'submit', class: "btn")%>
+                    <% end %> </td>  
+                  <% elsif b.status == "rejected" %>
+                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                    <%= button_tag("Approve", name: 'status', value: :approved,
+                        type: 'submit', class: "btn")%>
+                    <% end %> </td> 
+                  <% else %>
+                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                    <%= button_tag("Approve", name: 'status', value: :approved,
+                        type: 'submit', class: "btn")%>
+                    <% end %></td>
+                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                    <%= button_tag("Reject", name: 'status', value: :rejected,
+                        type: 'submit', class: "btn")%>
+                    <% end %></td> 
+                  <% end %>
+                <% end %>
               </tr>
             <% end %>
           </table>

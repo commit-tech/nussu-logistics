@@ -110,6 +110,12 @@ RSpec.describe BookingsController, type: :controller do
       end.to change { Booking.find(@booking.id).quantity }.to(2)
     end
 
+    it 'should not change the quantity and redirect' do
+      @booking = create(:booking)
+      patch :update, params: { id: @booking.id, booking: { quantity: -1 } }
+      assert_template :edit
+    end
+
     it 'should change the start_time and redirect' do
       @booking = create(:booking)
       expect do
@@ -117,11 +123,23 @@ RSpec.describe BookingsController, type: :controller do
       end.to change { Booking.find(@booking.id).start_time }.to(DateTime.new(2020))
     end
 
+    it 'should not change the start_time and redirect' do
+      @booking = create(:booking)
+      patch :update, params: { id: @booking.id, booking: { start_time: DateTime.new(1900) } }
+      assert_template :edit
+    end
+
     it 'should change the end_time and redirect' do
       @booking = create(:booking)
       expect do
         patch :update, params: { id: @booking.id, booking: { end_time: DateTime.new(2040) } }
       end.to change { Booking.find(@booking.id).end_time }.to(DateTime.new(2040))
+    end
+
+    it 'should not change the end_time and redirect' do
+      @booking = create(:booking)
+      patch :update, params: { id: @booking.id, booking: { end_time: DateTime.new(1900) } }
+      assert_template :edit
     end
 
     after do

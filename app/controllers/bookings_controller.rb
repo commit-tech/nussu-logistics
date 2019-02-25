@@ -1,6 +1,10 @@
 class BookingsController < ApplicationController
   def index
-    @bookings = Booking.all
+    if can?(:show_full, User)
+      @bookings = Booking.all
+    else
+      @bookings = Booking.where(user: current_user)
+    end    
   end
 
   def show
@@ -17,7 +21,7 @@ class BookingsController < ApplicationController
 
   def create
     booking = Booking.new(booking_params)
-    booking.status = 0
+    booking.status = :pending
     booking.user = current_user
 
     if booking.save
@@ -33,14 +37,23 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-
-    if @booking.update(booking_params)
-      redirect_to bookings_path,
-                  notice: "Updated booking"
-    else 
-      flash.now[:alert] = "Failed to update booking"
-      render new_booking_path
-    end
+    if params[:status]
+      if @booking.update(params.permit(:status))
+        redirect_to bookings_path,
+                    notice: "#{@booking.status.capitalize} booking successfully"
+      else 
+        redirect_to bookings_path,
+                    notice: "Failed. Booking still in #{@booking.status} state"
+      end
+    else
+      if @booking.update(booking_params)
+        redirect_to bookings_path,
+                notice: "Updated booking"
+      else 
+        flash.now[:alert] = "Failed to update booking"
+        render 'edit'
+      end
+    end  
   end
 
   def destroy
@@ -55,6 +68,6 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:status, :description, :start_time, :end_time, :quantity)
+    params.require(:booking).permit(:description, :start_time, :end_time, :quantity)
   end
 end
