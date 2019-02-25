@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :item, except: %i[create new] do
+  resources :items, except: %i[create new] do
     member do
       get 'guide', to: 'static_pages#guide'
       get 'item/list'
