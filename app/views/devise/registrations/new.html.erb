@@ -6,6 +6,7 @@
       <div class="box col-sm-12 col-md-6 offset-md-3">
         <div class="account-wall register">
           <h3>Sign up</h3>
+          <div class="required">All fields are required.</div>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
             <div class="field">

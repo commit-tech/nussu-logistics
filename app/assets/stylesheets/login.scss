@@ -122,6 +122,12 @@ div.alert.alert-danger {
     overflow: auto;
   }
 
+  .required {
+    text-align: left;
+    font-size: 12px;
+    color: red;
+  }
+
   form#new_user.new_user {
     padding-left: 15%;
     padding-right: 15%;
