@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  contact_num            :string
+#  cca                    :string           not null
 #
 # Indexes
 #
@@ -32,5 +33,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it { should have_many(:timeslots).with_foreign_key(:default_user_id) }
+  it { should validate_presence_of(:cca) }
+  it { should validate_presence_of(:email) }
+  subject { create(:user) }
+  it { should validate_uniqueness_of(:email).ignoring_case_sensitivity }
+  it { should validate_uniqueness_of(:username) }
 end
