@@ -37,5 +37,6 @@ FactoryBot.define do
   factory :user do
     email
     password { '123456' }
+    cca { 'NUSSU commIT' }
   end
 end

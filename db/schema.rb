@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180329164621) do
+ActiveRecord::Schema.define(version: 20190223070112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20180329164621) do
     t.datetime "updated_at",             :null=>false
     t.string   "username",               :index=>{:name=>"index_users_on_username", :unique=>true, :using=>:btree}
     t.string   "contact_num"
+    t.string   "cca",                    :null=>false
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
