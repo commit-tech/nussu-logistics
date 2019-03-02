@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  contact_num            :string
+#  cca                    :string           not null
 #
 # Indexes
 #

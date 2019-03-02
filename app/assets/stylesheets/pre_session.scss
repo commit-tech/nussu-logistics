@@ -2,7 +2,7 @@ div.alert.alert-danger {
   margin-bottom: 0;
 }
 
-.login {
+.pre_session {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -34,7 +34,8 @@ div.alert.alert-danger {
   }
 
   input#user_username, input#user_email, input#user_password, 
-  input#user_password_confirmation, input#user_contact_num {
+  input#user_password_confirmation, input#user_contact_num,
+  input#user_cca {
     background-color: rgba(0, 0, 0, 0);
     border-top: none;
     border-left: none;
@@ -119,6 +120,12 @@ div.alert.alert-danger {
   .register {
     height: 450px;
     overflow: auto;
+  }
+
+  .required {
+    text-align: left;
+    font-size: 12px;
+    color: red;
   }
 
   form#new_user.new_user {

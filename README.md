@@ -9,4 +9,4 @@ Version 1 of NUSSU logistic services booking web application
 5. Run ```rails s```
 
 Temporary DB Diagram here:
-https://dbdiagram.io/d/5c6128dbf7c5bb70c72efc60
+https://dbdiagram.io/d/5c6128dbf7c5bb70c72efc60 [Needs to be updated]
