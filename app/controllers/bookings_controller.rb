@@ -5,6 +5,25 @@ class BookingsController < ApplicationController
     else
       @bookings = Booking.where(user: current_user)
     end    
+
+    if params[:all_bookings]
+      @filter = 'All'
+    elsif params[:rejected_bookings]
+      @filter = 'Rejected'
+      @bookings = @bookings.where(
+        status: "rejected"
+      )
+    elsif params[:approved_bookings]
+      @filter = 'Approved'
+      @bookings = @bookings.where(
+        status: "approved"
+      )
+    else
+      @filter = 'Pending'
+      @bookings = @bookings.where(
+        status: "pending"
+      )
+    end
   end
 
   def show

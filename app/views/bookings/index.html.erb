@@ -1,5 +1,16 @@
+<div class="container-fluid no-padding">
+  <h1>Booking List (<%= @filter %>)</h1>
+</div>
+
+
+
 <div>
-  <h1> All Bookings </h1>
+  <ul class="btn-container">
+    <li><%= button_to "Show All Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {all_bookings: true} %></li>
+    <li><%= button_to "Show Rejected Problems", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {rejected_bookings: true} %></li>
+    <li><%= button_to "Show Approved Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {approved_bookings: true} %></li>
+    <li><%= button_to "Show Pending Bookings", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn inline" %></li>
+  </ul>
 
   <div class="container">
     <div class="row">
