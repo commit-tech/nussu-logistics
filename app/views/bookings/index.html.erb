@@ -7,7 +7,7 @@
 <div>
   <ul class="btn-container">
     <li><%= button_to "Show All Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {all_bookings: true} %></li>
-    <li><%= button_to "Show Rejected Problems", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {rejected_bookings: true} %></li>
+    <li><%= button_to "Show Rejected Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {rejected_bookings: true} %></li>
     <li><%= button_to "Show Approved Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {approved_bookings: true} %></li>
     <li><%= button_to "Show Pending Bookings", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn inline" %></li>
   </ul>
