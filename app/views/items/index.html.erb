@@ -10,6 +10,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>More details</th>
 
           </tr>
           <% @items.each do |i| %>
@@ -17,6 +18,7 @@
               <td><%= i.name %></td>
               <td><%= i.description %></td>
               <td><%= i.quantity %></td>
+              <td><%= link_to 'Show Full Details', item_path(i) %></td>
             </tr>
           <% end %>
         </table>
