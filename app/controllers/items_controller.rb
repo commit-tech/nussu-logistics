@@ -26,12 +26,8 @@ class ItemsController < ApplicationController
         
      end
      
-     def item_params
+    def item_params
         params.require(:item).permit(:name, :description, :quantity)
-     end
-
-    def list
-        @item = item.all
     end
 
     def show

@@ -13,15 +13,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :items, except: %i[create new] do
-    member do
-      get 'guide', to: 'static_pages#guide'
-      get 'item/list'
-      get 'item/new'
-      post 'item/create'
-      get 'item/list'
-      get 'item/show'
-      get 'item/edit'
-    end
-  end
+  resources :items
 end
