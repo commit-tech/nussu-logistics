@@ -2,15 +2,15 @@ class ItemsController < ApplicationController
     load_and_authorize_resource
     
     def index
-        @item = item.order(name: :asc)
+        @item = Item.order(name: :asc)
     end
 
     def new
-        @item = item.new
+        @item = Item.new
     end
 
     def create
-        @item = item.new(item_params)
+        @item = Item.new(item_params)
          
         if @item.save
             redirect_to :action => 'index'
@@ -21,11 +21,11 @@ class ItemsController < ApplicationController
     end
 
     def show
-        @item = item.find(params[:id])
+        @item = Item.find(params[:id])
     end
     
     def edit
-        @item = item.find(params[:id])
+        @item = Item.find(params[:id])
     end
 
     private
