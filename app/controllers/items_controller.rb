@@ -7,37 +7,30 @@ class ItemsController < ApplicationController
 
     def new
         @item = item.new
-        @name = name.all
-        @description = description.all
-        @quantity = quantity.all
     end
 
     def create
         @item = item.new(item_params)
          
         if @item.save
-            redirect_to :action => 'list'
+            redirect_to :action => 'index'
         else
-            @name = name.all
-            @description = description.all
-            @quantity = quantity.all
             render :action => 'new'
         end
         
-     end
-     
-    def item_params
-        params.require(:item).permit(:name, :description, :quantity)
     end
 
     def show
-        @item =  item.find(params[:id])
+        @item = item.find(params[:id])
     end
     
     def edit
         @item = item.find(params[:id])
-        @name = name.all
-        @description = description.all
-        @quantity = quantity.all
+    end
+
+    private
+
+    def item_params
+        params.require(:item).permit(:name, :description, :quantity)
     end
 end
