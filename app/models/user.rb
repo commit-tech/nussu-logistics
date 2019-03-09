@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  contact_num            :string
+#  cca                    :string           not null
 #
 # Indexes
 #
@@ -38,6 +39,4 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :timeslots, foreign_key: :default_user_id, inverse_of: :default_user,
-                       dependent: :nullify
 end
