@@ -13,6 +13,7 @@
     }
   }
   
+  
   .alert-box {
     margin-bottom: 0;
   }
@@ -65,7 +66,8 @@
       background-color: $dark-cream;
     }
   }
-  
+
+
   .new-booking-table {
     background-color: $cream;
     margin-bottom: 10px;
@@ -76,13 +78,63 @@
     }
   
     .name,
-    .venue,
-    .pc-number,
-    .description {
+    .quantity,
+    .description,
+    .time {
       text-align: center;
     }
   
     .new-booking-form {
+      background-color: $cream;
+    }
+  
+    .submit-btn {
+      text-align: center;
+    }
+  }
+
+  .show-booking-table {
+    border: .5px solid $dim-grey;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px 1px $grey;
+    margin-top: 2%;
+    width: 100%;
+  
+    table {
+      width: 100%;
+    }
+
+    th {
+      background-color: $yellow;
+      border: .5px solid $light-grey;
+      font-weight: bolder;
+      height: 50px;
+      text-align: center;
+    }
+  
+    td {
+      border: .5px solid $light-grey;
+      height: 40px;
+      text-align: center;
+    }
+  
+    tr:nth-child(even) {
+      background-color: $cream;
+    }
+  
+    tr:nth-child(odd) {
+      background-color: $dark-cream;
+    }
+  
+    .status,
+    .name,
+    .quantity,
+    .description,
+    .time {
+      text-align: center;
+    }
+  
+    .show-booking-form {
       background-color: $cream;
     }
   
@@ -109,4 +161,19 @@
     padding-right: 10px;
     width: 20%;
   }
-  
+
+//Please move this to a more global file
+h1 {
+  background-color: $black;
+  box-shadow: 0 1px 10px $grey,
+              inset 1px -3px 3px -1px $grey;
+  color: $yellow;
+  font-family: Verdana, sans-serif;
+  margin-top: 0;
+  padding-bottom: 2%;
+  padding-left: 5%;
+  padding-top: 2%;
+  text-shadow: 0 -.5px 0 $light-yellow,
+               0 .5px 0 $light-yellow;
+  width: 100%;
+}

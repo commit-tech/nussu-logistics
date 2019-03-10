@@ -2,76 +2,71 @@
   <h1>Booking List (<%= @filter %>)</h1>
 </div>
 
-
-
-<div>
+<div class="col-md-12 col-sm-12">
   <ul class="btn-container">
     <li><%= button_to "Show All Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {all_bookings: true} %></li>
     <li><%= button_to "Show Rejected Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {rejected_bookings: true} %></li>
     <li><%= button_to "Show Approved Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {approved_bookings: true} %></li>
     <li><%= button_to "Show Pending Bookings", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn inline" %></li>
+    <li><%= button_to "Make New Booking", new_booking_path, method: "get", class: "btn btn-info submit-btn booking-btn inline" %></li>
   </ul>
 
-  <div class="container">
-    <div class="row">
-        <div class="col-md-12 scrollable">
-          <table class="table">
+  <div class="table-responsive">
+      <div class="col-md-18 scrollable">
+        <table class="table booking-table">
+          <tr>
+            <th class="status">Status</th>
+            <th class="user">User</th>
+            <th class="quantity">Quantity</th>
+            <th class="desc">Description</th>
+            <th class="time">Start Time</th>
+            <th class="time">End Time</th>
+            <th class="empty"></th>
+            <th class="empty"></th>
+            <th class="empty"></th>
+            <th class="empty"></th>
+          </tr>
+          <% @bookings.each do |b| %>
             <tr>
-              <th class="status">Status</th>
-              <th class="user">User</th>
-              <th class="quantity">Quantity</th>
-              <th class="desc">Description</th>
-              <th class="time">Start Time</th>
-              <th class="time">End Time</th>
-              <th class="empty"></th>
-              <th class="empty"></th>
-              <th class="empty"></th>
-            </tr>
-            <% @bookings.each do |b| %>
-              <tr>
-                <td class="status"><%= b.status %></td>
-                <td class="user"><%= User.find(b.user_id)&.username %></td>
-                <td class="quantity"><%= b.quantity %></td>
-                <td class="desc"><%= b.description %></td>
-                <td class="time"><%= b.start_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
-                <td class="time"><%= b.end_time.strftime('%a, %d %b %Y %H:%M:%S') %></td>
-                <td class="show"><%= link_to 'Show more', booking_path(b) %></td>
-                <td class="edit">
-                  <% if b.status == "pending" || can?(:show_full, User)%>
-                    <%= link_to 'Edit Booking', edit_booking_path(b) %>
-                  <% end %>  
-                </td>  
-                <% if can?(:show_full, User) %>
-                  <% if b.status == "approved" %>
-                    <td></td>
-                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
-                    <%= button_tag("Reject", name: 'status', value: :rejected,
-                      type: 'submit', class: "btn")%>
-                    <% end %> </td>  
-                  <% elsif b.status == "rejected" %>
-                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
-                    <%= button_tag("Approve", name: 'status', value: :approved,
-                        type: 'submit', class: "btn")%>
-                    <% end %> </td> 
-                  <% else %>
-                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
-                    <%= button_tag("Approve", name: 'status', value: :approved,
-                        type: 'submit', class: "btn")%>
-                    <% end %></td>
-                    <td><%= form_tag(booking_path(b.id), method: "patch") do %>
-                    <%= button_tag("Reject", name: 'status', value: :rejected,
-                        type: 'submit', class: "btn")%>
-                    <% end %></td> 
-                  <% end %>
+              <td class="status"><%= b.status %></td>
+              <td class="user"><%= User.find(b.user_id)&.username %></td>
+              <td class="quantity"><%= b.quantity %></td>
+              <td class="desc"><%= truncate(b.description, :length => 30) %></td>
+              <td class="time"><%= b.start_time.strftime('%a, %d %b %Y %H:%M') %></td>
+              <td class="time"><%= b.end_time.strftime('%a, %d %b %Y %H:%M') %></td>
+              <td class="show"><%= link_to 'Show more', booking_path(b) %></td>
+              <td class="edit">
+                 <% if b.status == "pending" || can?(:show_full, User)%>
+                  <%= link_to 'Edit Booking', edit_booking_path(b) %>
+                <% end %>  
+              </td>  
+              <% if can?(:show_full, User) %>
+                <% if b.status == "approved" %>
+                  <td></td>
+                  <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                  <%= button_tag("Reject", name: 'status', value: :rejected,
+                    type: 'submit', class: "btn booking-btn btn-danger")%>
+                  <% end %> </td>  
+                <% elsif b.status == "rejected" %>
+                  <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                  <%= button_tag("Approve", name: 'status', value: :approved,
+                      type: 'submit', class: "btn booking-btn btn-success")%>
+                  <% end %> </td> 
+                  <td></td>
+                <% else %>
+                  <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                  <%= button_tag("Approve", name: 'status', value: :approved,
+                      type: 'submit', class: "btn booking-btn btn-success")%>
+                  <% end %></td>
+                  <td><%= form_tag(booking_path(b.id), method: "patch") do %>
+                  <%= button_tag("Reject", name: 'status', value: :rejected,
+                      type: 'submit', class: "btn booking-btn btn-danger")%>
+                  <% end %></td> 
                 <% end %>
-              </tr>
-            <% end %>
-          </table>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
       </div>
-    </div>
-  </div>
-
-  <div>
-    <%= button_to("Make New Booking", new_booking_path, method: "get", class: "btn btn-info booking-btn inline") %></li>
   </div>
 </div>
