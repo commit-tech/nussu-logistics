@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190225015743) do
+ActiveRecord::Schema.define(version: 20190224103954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,27 +26,20 @@ ActiveRecord::Schema.define(version: 20190225015743) do
     t.integer  "user_id",     :index=>{:name=>"index_bookings_on_user_id", :using=>:btree}
   end
 
+  create_table "items", force: :cascade do |t|
+    t.string   "name",        :default=>"", :null=>false
+    t.text     "description", :default=>"", :null=>false
+    t.integer  "quantity",    :null=>false
+    t.datetime "created_at",  :null=>false
+    t.datetime "updated_at",  :null=>false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",          :index=>{:name=>"index_roles_on_name_and_resource_type_and_resource_id", :with=>["resource_type", "resource_id"], :using=>:btree}
     t.string   "resource_type", :index=>{:name=>"index_roles_on_resource_type_and_resource_id", :with=>["resource_id"], :using=>:btree}
     t.integer  "resource_id"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
-  end
-
-  create_table "time_ranges", force: :cascade do |t|
-    t.time     "start_time"
-    t.time     "end_time"
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-  end
-
-  create_table "timeslots", force: :cascade do |t|
-    t.integer  "default_user_id", :index=>{:name=>"index_timeslots_on_default_user_id", :using=>:btree}
-    t.integer  "time_range_id",   :index=>{:name=>"index_timeslots_on_time_range_id", :using=>:btree}
-    t.datetime "created_at",      :null=>false
-    t.datetime "updated_at",      :null=>false
-    t.integer  "day"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,6 +60,7 @@ ActiveRecord::Schema.define(version: 20190225015743) do
     t.datetime "updated_at",             :null=>false
     t.string   "username",               :index=>{:name=>"index_users_on_username", :unique=>true, :using=>:btree}
     t.string   "contact_num"
+    t.string   "cca",                    :null=>false
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
@@ -77,6 +71,4 @@ ActiveRecord::Schema.define(version: 20190225015743) do
   end
 
   add_foreign_key "bookings", "users"
-  add_foreign_key "timeslots", "time_ranges"
-  add_foreign_key "timeslots", "users", column: "default_user_id"
 end

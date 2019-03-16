@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.save
     yield resource if block_given?
+    sign_in(resource)
     redirect_to users_path
   end
 

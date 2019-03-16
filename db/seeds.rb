@@ -11,31 +11,23 @@
 #                          { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Some random CCAs
+SOME_CCAS = ['NUSSU commIT', 'NUSSU VPC', 'IEEE', 'NUS Magic']
+
 # Admin User
 admin = User.create(username: 'admin', email: 'admin@example.com',
-                    password: '123456')
+                    password: '123456', cca: SOME_CCAS[0])
 admin.add_role :admin
 
 User::FAKENAMES.each do |c|
   8.times do |i|
     user = User.create(username: "#{c}#{i}", email: "#{c}#{i}@example.com",
-                       password: '123456')
+                       password: '123456', cca: SOME_CCAS.sample)
   end
 end
 
-User.create(username: 'test', email: 'test@example.com', password: '123456')
+User.create(username: 'test', email: 'test@example.com', password: '123456', cca: SOME_CCAS[0])
 
-('12:00'.in_time_zone.to_i..'16:00'.in_time_zone.to_i)
-  .step(2.hours).each do |time|
-  start = Time.zone.at(time)
-  TimeRange.create(start_time: start, end_time: start + 2.hours)
-end
-
-# Timeslots in YIH
-Date::DAYNAMES.each do |day|
-  TimeRange.all.each do |tr|
-    Timeslot.create(day: day,
-                    default_user: User.offset(rand(User.count)).first,
-                    time_range: tr)
-  end
-end
+Item.create(name: "Projector", description: "This is a projector", quantity: 2)
+Item.create(name: "Camera", description: "This is a camera", quantity: 20)
+Item.create(name: "Laptop", description: "This is a laptop", quantity: 3)

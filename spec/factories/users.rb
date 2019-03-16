@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  contact_num            :string
+#  cca                    :string           not null
 #
 # Indexes
 #
@@ -37,5 +38,6 @@ FactoryBot.define do
   factory :user do
     email
     password { '123456' }
+    cca { 'NUSSU commIT' }
   end
 end
