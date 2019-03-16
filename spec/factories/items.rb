@@ -12,18 +12,9 @@
 #
 
 FactoryBot.define do
-<<<<<<< HEAD
-    factory :item do
-      name { "Dummy" }
-      description { "Dummy Item" }
-      quantity { 2 }
-    end
-end 
-=======
   factory :item do
     name { "Dummy" }
     description { "Dummy Item" }
     quantity { 2 }
   end
 end
->>>>>>> 63cab59e523b6dbbcdcd9cfb5287715ca200f28f
