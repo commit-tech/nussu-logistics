@@ -58,7 +58,7 @@ class Booking < ApplicationRecord
     if available < self.quantity then
       self.errors.add(:quantity, 'must be at most the number available in time range')
     end 
-    if available not in 0..self.item.quantity then
+    if available.between?(0, self.item.quantity) then
       self.errors.add('Available quantity not in range 0 - #{self.item.quantity}')
     end
 end
