@@ -3,13 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .list {
-  .name, .desc, .quantity, .more {
+  .name, .desc, .quantity, .more, .book {
     width: 15%;
     text-align: center;
   }
-
-  .book {
-    font-size: 12px;
-    text-align: center;
+  
+  .book-btn {
+    box-shadow: 0 2px 2px $grey;
+    font-size: 13px;
   }
 }
