@@ -14,7 +14,7 @@
 FactoryBot.define do
   factory :item do
     name { "Dummy" }
-    description { "Halp" }
+    description { "Dummy Item" }
     quantity { 2 }
   end
 end
