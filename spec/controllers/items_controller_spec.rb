@@ -37,7 +37,7 @@ RSpec.describe ItemsController, type: :controller do
 
   describe 'GET #new' do
     it 'redirects when unauthenticated' do
-      get :new, params: { id: create:item).id }
+      get :new, params: { id: create(:item).id }
       should redirect_to(new_user_session_path)
     end
     it 'denies access when normal user create new item' do
@@ -51,7 +51,7 @@ RSpec.describe ItemsController, type: :controller do
       admin = create(:item)
       user.add_role(:admin)
       sign_in user
-      get :new, params: { id: create:item).id }
+      get :new, params: { id: create(:item).id }
       should respond_with :ok
     end
   end
