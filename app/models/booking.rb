@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
   validates :item_id, presence: true
   validate :booking_must_be_at_least_one_hour_before
   validate :end_time_must_be_later_than_start_time
-  #validate :enough_items
+  validate :enough_items
 
   def booking_must_be_at_least_one_hour_before
     if self.start_time < DateTime.now + Rational(1,24)
@@ -50,26 +50,30 @@ class Booking < ApplicationRecord
   end
 
   def enough_items
-    bookings = Booking.where(item_id: item_id, status: approved)
+    if self.status == "rejected"
+      return
+    end  
+
+    bookings = Booking.where(item_id: item_id, status: "approved")
     max = 0
 
     curr = self.start_time
-    while curr < self.end_time
+    while curr < self.end_time do
       num = 0
       bookings.each do |b|
-        if curr >= b.start_time && curr < b.end_time
+        if curr >= b.start_time && curr < b.end_time then
           num = num + 1
         end 
       end
       
-      curr = curr + Rational(1, 48)
+      curr = curr + 30.minutes
       max = max > num ? max : num
     end  
     
-    total = Item.find(item_id).quantity
+    total = self.item.quantity
     available = total - max
-    
-    if total < self.quantity
+
+    if available < self.quantity then
       self.errors.add(:quantity, 'must be at most the number available in time range')
     end
   end

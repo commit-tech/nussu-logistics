@@ -1,9 +1,9 @@
 class BookingsController < ApplicationController
   def index
     if can?(:show_full, User)
-      @bookings = Booking.all
+      @bookings = Booking.all.includes(:user, :item)
     else
-      @bookings = Booking.where(user: current_user)
+      @bookings = Booking.where(user: current_user).includes(:user, :item)
     end    
 
     if params[:all_bookings]
@@ -12,17 +12,17 @@ class BookingsController < ApplicationController
       @filter = 'Rejected'
       @bookings = @bookings.where(
         status: "rejected"
-      )
+      ).includes(:user, :item)
     elsif params[:approved_bookings]
       @filter = 'Approved'
       @bookings = @bookings.where(
         status: "approved"
-      )
+      ).includes(:user, :item)
     else
       @filter = 'Pending'
       @bookings = @bookings.where(
         status: "pending"
-      )
+      ).includes(:user, :item)
     end
   end
 
