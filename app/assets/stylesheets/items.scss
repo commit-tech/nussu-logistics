@@ -19,11 +19,8 @@
   border-collapse: collapse;
   box-shadow: 0 0 10px 1px $grey;
   margin-top: 2%;
+  margin-bottom: 2%;
   width: 100%;
-
-  table {
-    width: 100%;
-  }
 
   th {
     background-color: $yellow;
@@ -47,20 +44,9 @@
     background-color: $dark-cream;
   }
 
-  .status,
   .name,
   .quantity,
-  .description,
-  .time,
-  .item {
-    text-align: center;
-  }
-
-  .show-booking-form {
-    background-color: $cream;
-  }
-
-  .submit-btn {
+  .description {
     text-align: center;
   }
 }
