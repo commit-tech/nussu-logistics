@@ -33,12 +33,14 @@ class Booking < ApplicationRecord
 
   validates :quantity, numericality:{greater_than: 0}
   validates :item_id, presence: true
+  validates :user_id, presence: true
+  validates :start_time, uniqueness: { scope: [:item_id, :user_id, :end_time] }
   validate :booking_must_be_at_least_one_hour_before
   validate :end_time_must_be_later_than_start_time
   validate :enough_items
 
   def booking_must_be_at_least_one_hour_before
-    if self.start_time < DateTime.now + Rational(1,24)
+    if self.start_time < DateTime.now + 1.hours
       self.errors.add(:booking, 'must be done at least one hour before')
     end
   end
