@@ -1,0 +1,60 @@
+<div class="container-fluid no-padding">
+  <h1>Create New Booking</h1>
+</div> 
+
+<div class="col-md-12 col-sm-12">
+  <ul class="btn-container">
+    <li><%= button_to("Back To Booking List", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
+  </ul>
+
+  <%= form_for @booking do |b|%>
+    <div class="table-responsive-lg new-booking-table">
+      <table>
+        <tr>
+          <td class="container td-container name"><b>User</b></td>
+          <td><%= current_user.username %></td>
+        <tr>
+
+        <tr>
+          <td class="container td-container item"><b>Item</b></td>
+          <td>
+            <%= b.select(:item_id, options_for_select(Item.all.map {|i| [i.name, i.id]}, selected: b.object.item_id), {:class => 'form-control new-booking-form'}) %></td>
+          </td>
+        <tr>
+
+        <tr>
+          <td class="container td-container quantity"><b>Quantity</b></td>
+          <td>
+            <%= b.text_field :quantity, autocomplete: "off", type: "" , class: "form-control new-booking-form"%></td>
+          </td>
+        <tr>
+
+        <tr>
+          <td class="container td-container description"><b>Description</b></td>
+          <% desc_place_holder = "Please describe the purpose of your booking if possible"%>
+          <td>
+            <%= b.text_area(:description, size: "100x10", placeholder: desc_place_holder, class: "form-control new-booking-form")%>
+          </td>
+        <tr> 
+
+        <tr>
+          <td class="container td-container time"></td>
+          <td>
+            <%= datetime_local_field(:booking, :start_time, step: 1800, class: "form-control new-booking-form") %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="container td-container time"></td>
+          <td>
+            <%= datetime_local_field(:booking, :end_time, step: 1800, class: "form-control new-booking-form") %>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="submit-btn"><%= b.submit("Submit", class: "btn btn-large btn-dark booking-btn center-block")%></td>
+        </tr>
+      </table>
+    </div>
+  <% end %>  
+</div>
