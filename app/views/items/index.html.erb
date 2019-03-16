@@ -1,5 +1,5 @@
 <div class="list">
-  <h1>Items list</h1>
+  <h1>Items List</h1>
 
   <div class="container">
     <div class="row">
@@ -7,18 +7,18 @@
 
         <table>
           <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>More details</th>
+            <th class="name">Name</th>
+            <th class="desc">Description</th>
+            <th class="quantity">Quantity</th>
+            <th class="more">More details</th>
 
           </tr>
           <% @items.each do |i| %>
             <tr>
-              <td><%= i.name %></td>
-              <td><%= i.description %></td>
-              <td><%= i.quantity %></td>
-              <td><%= link_to 'Show Full Details', item_path(i) %></td>
+              <td class="name"><%= i.name %></td>
+              <td class="desc"><%= i.description %></td>
+              <td class="quantity"><%= i.quantity %></td>
+              <td class="more"><%= link_to 'Show Full Details', item_path(i) %></td>
             </tr>
           <% end %>
         </table>
