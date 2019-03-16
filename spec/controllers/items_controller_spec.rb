@@ -44,7 +44,7 @@ RSpec.describe ItemsController, type: :controller do
       user = create(:item)
       sign_in user
       expect do
-        get :edit, params: { id: create(:item).id }
+        get :new, params: { id: create(:item).id }
       end.to raise_error(CanCan::AccessDenied)
     end
     it 'provides access to admin' do
