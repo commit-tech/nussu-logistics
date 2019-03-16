@@ -27,3 +27,7 @@ User::FAKENAMES.each do |c|
 end
 
 User.create(username: 'test', email: 'test@example.com', password: '123456', cca: SOME_CCAS[0])
+
+Item.create(name: "Projector", description: "This is a projector", quantity: 2)
+Item.create(name: "Camera", description: "This is a camera", quantity: 20)
+Item.create(name: "Laptop", description: "This is a laptop", quantity: 3)

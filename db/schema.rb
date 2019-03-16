@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190223070112) do
+ActiveRecord::Schema.define(version: 20190224103954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name",        :default=>"", :null=>false
+    t.text     "description", :default=>"", :null=>false
+    t.integer  "quantity",    :null=>false
+    t.datetime "created_at",  :null=>false
+    t.datetime "updated_at",  :null=>false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          :index=>{:name=>"index_roles_on_name_and_resource_type_and_resource_id", :with=>["resource_type", "resource_id"], :using=>:btree}
