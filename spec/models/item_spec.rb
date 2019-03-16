@@ -13,7 +13,7 @@
 
 require 'rails_helper'
 
-RSpec.describe item, type: :model do
+RSpec.describe Item, type: :model do
   it { should validate_presence_of(:id) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
