@@ -55,9 +55,9 @@ class Booking < ApplicationRecord
     used = Booking.where(item_id: item_id, status: "approved").where('? BETWEEN ? AND ?', self.start_time, start_time, end_time).size
     available = self.item.quantity - used
 
-    if available < self.quantity then
+    if available < self.quantity
       self.errors.add(:quantity, 'must be at most the number available in time range')
-    elsif available not in 0..self.item.quantity then
+    elsif available not in 0..self.item.quantity
       self.errors.add('Available quantity not in range 0 - #{self.item.quantity}')
     end
 end
