@@ -20,6 +20,7 @@ RSpec.describe ItemsController, type: :controller do
       should redirect_to(new_user_session_path)
     end
     it 'denies access when normal user edit the item parameters' do
+      user = create(:user)
       user = create(:item)
       sign_in user
       expect do
@@ -27,6 +28,7 @@ RSpec.describe ItemsController, type: :controller do
       end.to raise_error(CanCan::AccessDenied)
     end
     it 'provides access to admin' do
+      admin = create(:user)
       admin = create(:item)
       user.add_role(:admin)
       sign_in user
@@ -41,6 +43,7 @@ RSpec.describe ItemsController, type: :controller do
       should redirect_to(new_user_session_path)
     end
     it 'denies access when normal user create new item' do
+      user = create(:user)
       user = create(:item)
       sign_in user
       expect do
@@ -48,6 +51,7 @@ RSpec.describe ItemsController, type: :controller do
       end.to raise_error(CanCan::AccessDenied)
     end
     it 'provides access to admin' do
+      admin = create(:admin)
       admin = create(:item)
       user.add_role(:admin)
       sign_in user
@@ -62,6 +66,7 @@ RSpec.describe ItemsController, type: :controller do
       should redirect_to(new_user_session_path)
     end
     it 'denies access when normal user create new items' do
+      user = create(:user)
       user = create(:item)
       sign_in user
       expect do
@@ -69,6 +74,7 @@ RSpec.describe ItemsController, type: :controller do
       end.to raise_error(CanCan::AccessDenied)
     end
     it 'provides access to admin' do
+      admin = create(:user)
       admin = create(:item)
       user.add_role(:admin)
       sign_in user
