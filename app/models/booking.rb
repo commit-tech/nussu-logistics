@@ -61,4 +61,5 @@ class Booking < ApplicationRecord
     if available.between?(0, self.item.quantity) then
       self.errors.add('Available quantity not in range 0 - #{self.item.quantity}')
     end
+  end
 end
