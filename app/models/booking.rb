@@ -52,31 +52,14 @@ class Booking < ApplicationRecord
   end
 
   def enough_items
-    if self.status == "rejected"
-      return
-    end  
-
-    bookings = Booking.where(item_id: item_id, status: "approved")
-    max = 0
-
-    curr = self.start_time
-    while curr < self.end_time do
-      num = 0
-      bookings.each do |b|
-        if curr >= b.start_time && curr < b.end_time then
-          num = num + 1
-        end 
-      end
-      
-      curr = curr + 30.minutes
-      max = max > num ? max : num
-    end  
-    
-    total = self.item.quantity
-    available = total - max
+    used = Booking.where(item_id: item_id, status: "approved").where('? BETWEEN ? AND ?', self.start_time, start_time, end_time).size
+    available = self.item.quantity - used
 
     if available < self.quantity then
       self.errors.add(:quantity, 'must be at most the number available in time range')
+    end 
+    if available.between?(0, self.item.quantity) then
+      self.errors.add('Available quantity not in range 0 - #{self.item.quantity}')
     end
   end
 end
