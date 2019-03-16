@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :bookings
   resources :items
 
   get 'guide', to: 'static_pages#guide'

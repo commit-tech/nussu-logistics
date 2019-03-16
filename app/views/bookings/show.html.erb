@@ -1,0 +1,46 @@
+<div class="container-fluid no-padding">
+  <h1>Booking Details</h1>
+</div>
+
+
+<div class="col-md-6 col-sm-6">
+  <ul class="btn-container">
+    <li><%= button_to("Back To Booking List", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
+  </ul>
+  <div class="table-responsive-lg show-booking-table">
+      <table>
+        <tr>
+          <th class="status">Status</th>
+          <td class="status"><%= @booking.status %></td>
+        </tr>
+        <tr>
+          <th class="name">User</th>
+          <td class="name"><%= @booking.user.username %></td>
+        </tr>
+        <tr>
+          <th class="item">Item</th>
+          <td class="item"><%= link_to @booking.item.name, item_path(@booking.item_id) %></td>
+        </tr>
+        <tr>
+          <th class="quantity">Quantity</th>
+          <td class="name"><%= @booking.quantity %></td>
+        </tr>
+        <tr>
+          <th class="description">Description</th>
+          <td class="description"><%= @booking.description %></td>
+        </tr>
+        <tr>
+          <th class="time">Start Time</th>
+          <td class="time"><%= @booking.start_time.strftime('%a, %d %b %Y %H:%M') %></td>
+        </tr>
+        <tr>
+          <th class="time">End Time</th>
+          <td class="time"><%= @booking.end_time.strftime('%a, %d %b %Y %H:%M') %></td>
+        </tr>
+      </table>
+  </div>
+  <ul class="btn-container">
+    <li><%= button_to "Update Booking", edit_booking_path, method: "get", class: "btn btn-large btn-dark booking-btn submit-btn center-block"%></li>
+    <li><%= button_to "Delet dis", booking_path(@booking), method: "delete", class: "btn booking-btn submit-btn btn-danger"%></li>
+  </ul>
+</div>
