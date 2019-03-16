@@ -8,8 +8,59 @@
     text-align: center;
   }
   
-  .book-btn {
+  .book-btn, .return-btn {
     box-shadow: 0 2px 2px $grey;
     font-size: 13px;
+  }
+}
+
+.show-item-table {
+  border: .5px solid $dim-grey;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px 1px $grey;
+  margin-top: 2%;
+  width: 100%;
+
+  table {
+    width: 100%;
+  }
+
+  th {
+    background-color: $yellow;
+    border: .5px solid $light-grey;
+    font-weight: bolder;
+    height: 50px;
+    text-align: center;
+  }
+
+  td {
+    border: .5px solid $light-grey;
+    height: 40px;
+    text-align: center;
+  }
+
+  tr:nth-child(even) {
+    background-color: $cream;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $dark-cream;
+  }
+
+  .status,
+  .name,
+  .quantity,
+  .description,
+  .time,
+  .item {
+    text-align: center;
+  }
+
+  .show-booking-form {
+    background-color: $cream;
+  }
+
+  .submit-btn {
+    text-align: center;
   }
 }

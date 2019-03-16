@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <table>
+        <table class="show-item-table">
           <tr>
             <th>Name:</th>
             <td><%= @item.name %></td>
@@ -18,6 +18,8 @@
             <td><%= @item.quantity %></td>
           </tr>
         </table>
+        <%= button_to("Show all items", items_path,
+        method: "get", class: "return-btn") %>
       </div>
     </div>
   </div>

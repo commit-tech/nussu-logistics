@@ -20,7 +20,8 @@
               <td class="desc"><%= truncate(i.description, :length => 30) %></td>
               <td class="quantity"><%= i.quantity %></td>
               <td class="more"><%= link_to 'Show Full Details', item_path(i) %></td>
-              <td class="book"><button type="button" class="book-btn btn-success">Book item</button></td>
+              <td class="book"><%= button_to("Book item", items_path,
+                method: "get", class: "book-btn btn-success") %></td>
             </tr>
           <% end %>
         </table>
