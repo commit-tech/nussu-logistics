@@ -19,7 +19,8 @@
         <tr>
           <td class="container td-container item"><b>Item</b></td>
           <td>
-            <%= b.select(:item_id, options_for_select(Item.all.map {|i| [i.name, i.id]}, selected: b.object.item_id), {:class => 'form-control new-booking-form'}) %></td>
+            <%= b.select(:item_id, options_for_select(Item.all.map {|i| [i.name, i.id]}, 
+              selected: params[:id]), {:class => 'form-control new-booking-form'}) %></td>
           </td>
         <tr>
 
