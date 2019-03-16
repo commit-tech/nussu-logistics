@@ -5,6 +5,7 @@
 <div class="col-md-12 col-sm-12">
   <ul class="btn-container">
     <li><%= button_to("Back To Booking List", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
+    <li><%= button_to("Back To Items List", items_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
   </ul>
 
   <%= form_for @booking do |b|%>
