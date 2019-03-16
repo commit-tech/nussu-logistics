@@ -18,4 +18,8 @@ RSpec.describe item, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:quantity) }
+  subject { create(:item) }
+  it { should validate_uniqueness_of(:name) }
+  subject { edit(:item) }
+  it { should validate_uniqueness_of(:name) }
 end
