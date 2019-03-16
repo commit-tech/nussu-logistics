@@ -18,6 +18,14 @@
           <td class="name"><%= @booking.user.username %></td>
         </tr>
         <tr>
+          <th class="item">Item</th>
+          <td class="item"><%= link_to @booking.item.name, item_path(@booking.item_id) %></td>
+        </tr>
+        <tr>
+          <th class="quantity">Quantity</th>
+          <td class="name"><%= @booking.quantity %></td>
+        </tr>
+        <tr>
           <th class="description">Description</th>
           <td class="description"><%= @booking.description %></td>
         </tr>

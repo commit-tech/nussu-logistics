@@ -11,13 +11,16 @@
 #  updated_at  :datetime         not null
 #  quantity    :integer
 #  user_id     :integer
+#  item_id     :integer
 #
 # Indexes
 #
+#  index_bookings_on_item_id  (item_id)
 #  index_bookings_on_user_id  (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (item_id => items.id)
 #  fk_rails_...  (user_id => users.id)
 #
 
@@ -26,9 +29,10 @@ class Booking < ApplicationRecord
   enum status: STATUSES
 
   belongs_to :user
-  has_one :item
+  belongs_to :item
 
   validates :quantity, numericality:{greater_than: 0}
+  validates :item_id, presence: true
   validate :booking_must_be_at_least_one_hour_before
   validate :end_time_must_be_later_than_start_time
   #validate :enough_items

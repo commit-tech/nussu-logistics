@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BookingsController, type: :controller do
-  describe 'GET problem_reports#index' do
+  describe 'GET bookings#index' do
     before do
       sign_in create(:user)
     end
@@ -12,7 +12,7 @@ RSpec.describe BookingsController, type: :controller do
     end
   end
 
-  describe 'POST problem_reports#create' do
+  describe 'POST bookings#create' do
     before do
       user = create(:user)
       user.add_role(:technical)

@@ -17,6 +17,7 @@
           <tr>
             <th class="status">Status</th>
             <th class="user">User</th>
+            <th class="item">Item</th>
             <th class="quantity">Quantity</th>
             <th class="desc">Description</th>
             <th class="time">Start Time</th>
@@ -29,7 +30,8 @@
           <% @bookings.each do |b| %>
             <tr>
               <td class="status"><%= b.status %></td>
-              <td class="user"><%= User.find(b.user_id)&.username %></td>
+              <td class="user"><%= b.user.username %></td>
+              <td class="user"><%= link_to b.item.name, item_path(b.item_id) %></td>
               <td class="quantity"><%= b.quantity %></td>
               <td class="desc"><%= truncate(b.description, :length => 30) %></td>
               <td class="time"><%= b.start_time.strftime('%a, %d %b %Y %H:%M') %></td>
