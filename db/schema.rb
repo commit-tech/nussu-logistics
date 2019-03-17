@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316081234) do
+ActiveRecord::Schema.define(version: 20190316171248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "citext"
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "status"
@@ -28,7 +29,7 @@ ActiveRecord::Schema.define(version: 20190316081234) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string   "name",        :default=>"", :null=>false
+    t.citext   "name",        :default=>"", :null=>false, :index=>{:name=>"index_items_on_name", :unique=>true, :using=>:btree}
     t.text     "description", :default=>"", :null=>false
     t.integer  "quantity",    :null=>false
     t.datetime "created_at",  :null=>false
@@ -41,6 +42,21 @@ ActiveRecord::Schema.define(version: 20190316081234) do
     t.integer  "resource_id"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
+  end
+
+  create_table "time_ranges", force: :cascade do |t|
+    t.time     "start_time"
+    t.time     "end_time"
+    t.datetime "created_at", :null=>false
+    t.datetime "updated_at", :null=>false
+  end
+
+  create_table "timeslots", force: :cascade do |t|
+    t.integer  "default_user_id", :index=>{:name=>"index_timeslots_on_default_user_id", :using=>:btree}
+    t.integer  "time_range_id",   :index=>{:name=>"index_timeslots_on_time_range_id", :using=>:btree}
+    t.datetime "created_at",      :null=>false
+    t.datetime "updated_at",      :null=>false
+    t.integer  "day"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,4 +89,6 @@ ActiveRecord::Schema.define(version: 20190316081234) do
 
   add_foreign_key "bookings", "items"
   add_foreign_key "bookings", "users"
+  add_foreign_key "timeslots", "time_ranges"
+  add_foreign_key "timeslots", "users", column: "default_user_id"
 end
