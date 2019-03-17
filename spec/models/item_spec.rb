@@ -15,5 +15,12 @@
 #  index_items_on_name  (name) UNIQUE
 #
 
-class Item < ApplicationRecord
+require 'rails_helper'
+
+RSpec.describe Item, type: :model do
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:description) }
+  it { should validate_presence_of(:quantity) }
+  subject { create(:item) }
+  it { should validate_uniqueness_of(:name).case_insensitive }
 end
