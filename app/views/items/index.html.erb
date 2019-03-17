@@ -21,7 +21,7 @@
               <td class="quantity"><%= i.quantity %></td>
               <td class="more"><%= link_to 'Show Full Details', item_path(i) %></td>
               <td class="book"><%= button_to("Book item", new_booking_path,
-                method: "get", params: {id: i}, class: "book-btn btn-success") %></td>
+                method: "get", params: {item_id: i.id}, class: "book-btn btn-success") %></td>
             </tr>
           <% end %>
         </table>
