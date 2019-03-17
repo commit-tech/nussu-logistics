@@ -1,23 +1,25 @@
 <div>
-  <h1>Booking Details</h1>
+  <h1>Item Details</h1>
 
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <table>
+        <table class="show-item-table">
           <tr>
-            <th>Name</th>
+            <th class="name">Name:</th>
             <td><%= @item.name %></td>
           </tr>
           <tr>
-            <th>Description</th>
+            <th class="desc">Description:</th>
             <td><%= @item.description %></td>
           </tr>
           <tr>
-            <th>Quantity</th>
+            <th class="quantity">Quantity:</th>
             <td><%= @item.quantity %></td>
           </tr>
         </table>
+        <%= button_to("Back To Items List", items_path,
+        method: "get", class: "return-btn test") %>
       </div>
     </div>
   </div>

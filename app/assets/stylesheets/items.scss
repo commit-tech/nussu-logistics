@@ -1,3 +1,53 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.list {
+  .name, .desc, .quantity, .more, .book {
+    width: 15%;
+    text-align: center;
+  }
+  
+  .book-btn, .return-btn {
+    box-shadow: 0 2px 2px $grey;
+    font-size: 13px;
+  }
+}
+
+.show-item-table {
+  border: .5px solid $dim-grey;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px 1px $grey;
+  table-layout: fixed;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 100%;
+
+  th {
+    background-color: $yellow;
+    border: .5px solid $light-grey;
+    font-weight: bolder;
+    height: 50px;
+    text-align: center;
+  }
+
+  td {
+    border: .5px solid $light-grey;
+    height: 40px;
+    text-align: center;
+  }
+
+  tr:nth-child(even) {
+    background-color: $cream;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $dark-cream;
+  }
+
+  .name,
+  .quantity,
+  .description {
+    text-align: center;
+  }
+}

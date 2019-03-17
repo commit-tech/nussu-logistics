@@ -5,6 +5,7 @@
 <div class="col-md-12 col-sm-12">
   <ul class="btn-container">
     <li><%= button_to("Back To Booking List", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
+    <li><%= button_to("Back To Items List", items_path, method: "get", class: "btn btn-large btn-light booking-btn") %></li>
   </ul>
 
   <%= form_for @booking do |b|%>
@@ -18,7 +19,8 @@
         <tr>
           <td class="container td-container item"><b>Item</b></td>
           <td>
-            <%= b.select(:item_id, options_for_select(Item.all.map {|i| [i.name, i.id]}, selected: b.object.item_id), {:class => 'form-control new-booking-form'}) %></td>
+            <%= b.select(:item_id, options_for_select(Item.all.map {|i| [i.name, i.id]}, 
+              selected: params[:item_id]), {:class => 'form-control new-booking-form'}) %></td>
           </td>
         <tr>
 
