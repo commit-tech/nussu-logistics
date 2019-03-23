@@ -31,7 +31,6 @@ RSpec.describe UsersController, type: :controller do
       user = create(:user)
       user.add_role(:admin)
       sign_in user
-      get :edit, params: { id: create(:user).id }
       should respond_with :ok
     end
   end
