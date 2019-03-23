@@ -27,11 +27,13 @@ RSpec.describe UsersController, type: :controller do
         get :edit, params: { id: create(:user).id }
       end.to raise_error(CanCan::AccessDenied)
     end
-    it 'provides access to admin' do
+    it 'denies access when admin access another users page' do
       user = create(:user)
       user.add_role(:admin)
       sign_in user
-      should respond_with :ok
+      expect do
+        get :edit, params: { id: create(:user).id }
+      end.to raise_error(CanCan::AccessDenied)
     end
   end
 
