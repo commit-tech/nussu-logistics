@@ -14,5 +14,6 @@ class Ability
 
   def admin
     can :manage, :all
+    cannot :edit, User
   end
 end
