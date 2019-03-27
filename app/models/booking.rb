@@ -56,6 +56,7 @@ class Booking < ApplicationRecord
 
     approvedBookings = Booking.where(item_id: item_id, status: "approved").includes(:start_time, :end_time)
     approvedBookings = approvedBookings.where.not(id: self.id)
+
     curr = self.start_time
     maxUsed = 0
 
