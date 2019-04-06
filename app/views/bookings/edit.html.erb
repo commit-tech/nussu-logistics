@@ -39,14 +39,14 @@
         <tr>
           <td class="container td-container time"><b>Start Time</b></td>
           <td>
-            <%= datetime_local_field(:booking, :start_time, step: 1800, class: "form-control new-booking-form") %>
+            <%= datetime_select(:booking, :start_time, :minute_step => 30, class: "form-control new-booking-form") %>
           </td>
         </tr>
 
         <tr>
           <td class="container td-container time"><b>End Time</b></td>
           <td>
-            <%= datetime_local_field(:booking, :end_time, step: 1800, class: "form-control new-booking-form") %>
+            <%= datetime_select(:booking, :end_time, :minute_step => 30, class: "form-control new-booking-form") %>
           </td>
         </tr>
 
