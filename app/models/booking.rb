@@ -54,10 +54,10 @@ class Booking < ApplicationRecord
   def enough_items
     return unless self.errors.blank?
 
-    approvedBookings = Booking.select(:start_time, :end_time, :quantity, :item_id, :id, :status)
-                              .where(item_id: self.item_id)
+    approvedBookings = Booking.where(item_id: self.item_id)
                               .where.not(id: self.id)
                               .order(:start_time)
+                              .select(:start_time, :end_time, :quantity)
                               
     curr = self.start_time
     maxUsed = 0
