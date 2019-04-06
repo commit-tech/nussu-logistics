@@ -57,6 +57,7 @@ class Booking < ApplicationRecord
     approvedBookings = Booking.select(:start_time, :end_time, :quantity, :item_id, :id, :status)
                               .where(item_id: self.item_id)
                               .where.not(id: self.id)
+                              .order(:start_time)
                               
     curr = self.start_time
     maxUsed = 0
@@ -65,7 +66,12 @@ class Booking < ApplicationRecord
       used = approvedBookings.where("start_time <= :curr AND end_time > :curr", curr: curr).sum(:quantity)
       maxUsed = maxUsed < used ? used : maxUsed
 
-      curr = curr + 30.minutes
+      next_booking = approvedBookings.where.not("start_time <= :curr", curr: curr).first
+      if next_booking.nil?
+        curr = self.end_time
+      else
+        curr = next_booking.start_time
+      end  
     end
 
     available = self.item.quantity - maxUsed
