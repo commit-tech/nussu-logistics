@@ -109,6 +109,7 @@ RSpec.describe BookingsController, type: :controller do
       @item = @booking.item
       @booking2 = create(:booking, item_id: @item.id, start_time: "2000-01-16 09:00:00", end_time: "2000-01-20 10:00:00" )
       @booking3 = create(:booking, item_id: @item.id, start_time: "2000-01-19 09:00:00", end_time: "2000-01-22 10:00:00" )
+      @booking4 = create(:booking, item_id: @item.id, quantity: 2, start_time: "2000-02-19 09:00:00", end_time: "2000-02-22 10:00:00" )
     end
 
     it 'should redirect to bookings_path and create new booking' do
@@ -122,7 +123,7 @@ RSpec.describe BookingsController, type: :controller do
                              start_time: DateTime.new(2000, 1, 1, 9), end_time: DateTime.new(2000, 1, 15, 9) ) ).to be true
     end
 
-    it 'should redirect to bookings_path and create new booking ver 2' do
+    it 'should redirect to bookings_path and create new booking even with existing non-overlapping bookings' do
       post :create, params: { booking:
                             { item_id: @item.id,
                               quantity: 1, 
@@ -151,12 +152,16 @@ RSpec.describe BookingsController, type: :controller do
                               end_time: DateTime.new(2000, 1, 23, 9) } }  
       assert_template :new
       expect(Booking.exists?(description: 'Failed')).to be false
+
+      post :create, params: { booking:
+                            { item_id: @item.id,
+                              description: 'Failed',
+                              quantity: 1, 
+                              start_time: DateTime.new(2000, 2, 18, 9),
+                              end_time: DateTime.new(2000, 2, 23, 9) } }  
+      assert_template :new
+      expect(Booking.exists?(description: 'Failed')).to be false
     end
-
-    
-
-
-
 
     after do
       Timecop.return

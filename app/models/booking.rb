@@ -54,14 +54,15 @@ class Booking < ApplicationRecord
   def enough_items
     return unless self.errors.blank?
 
-    approvedBookings = Booking.where(item_id: item_id, status: "approved").includes(:start_time, :end_time)
-    approvedBookings = approvedBookings.where.not(id: self.id)
-
+    approvedBookings = Booking.select(:start_time, :end_time, :quantity, :item_id, :id, :status)
+                              .where(item_id: self.item_id)
+                              .where.not(id: self.id)
+                              
     curr = self.start_time
     maxUsed = 0
 
     while curr < self.end_time do
-      used = approvedBookings.where("start_time <= :curr AND end_time > :curr", curr: curr).size
+      used = approvedBookings.where("start_time <= :curr AND end_time > :curr", curr: curr).sum(:quantity)
       maxUsed = maxUsed < used ? used : maxUsed
 
       curr = curr + 30.minutes
