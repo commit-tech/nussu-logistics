@@ -6,29 +6,33 @@ module BookingsHelper
 
     time1 = times[idx-1]
     time2 = times[idx]
+    result = []
     
-    while idx < size
+    while idx < sz
       time1 = times[idx-1]
       time2 = times[idx]
       timing = [[time1, time2]]
 
-      result << timing
+      result = result + timing
+      idx = idx + 1
     end
 
-    bookings = Bookings.where("(start_time <= :start_time AND end_time > :start_time) OR (start_time < :end_time AND end_time >= :end_time) AND status == 1", start_time: Time.now.beginning_of_day, end_time: Time.now.end_of_day)
+    puts result
+
+    bookings = Booking.where("(start_time >= :start_time AND start_time <= :end_time) OR (end_time <= :end_time AND end_time >= :start_time) AND status = 1", start_time: date.to_datetime, end_time: date.to_datetime.tomorrow)
     result = result.map{|timing| [timing, retrieve_bookings(timing[0], timing[1], bookings)]}.to_h
   end  
 
   def retrieve_period(date)
-    date = Time.now
-    booked_today = Bookings.where("(start_time <= :start_time AND end_time > :start_time) OR (start_time < :end_time AND end_time >= :end_time) AND status == 1", start_time: Time.now.beginning_of_day, end_time: Time.now.end_of_day)
-    period_booked_today << booked_today.pluck(:start_time)
-    period_booked_today << booked_today.pluck(:end_time)
-    return period_booked_today.distinct.order
+    booked_today = Booking.where("(start_time >= :start_time AND start_time <= :end_time) OR (end_time <= :end_time AND end_time >= :start_time) AND status = 1", start_time: date.to_datetime, end_time: date.to_datetime.tomorrow)
+    period_booked_today = booked_today.pluck(:start_time)
+    period_booked_today = period_booked_today + booked_today.pluck(:end_time)
+    period_booked_today = period_booked_today + [date.to_datetime, date.to_datetime.tomorrow]
+    return period_booked_today.uniq.sort
   end
 
-  def retrieve_bookings(start_time, end_time)
-    return Bookings.where("start_time <= :start_time AND end_time >= :end_time AND status == 1", start_time: start_time, end_time: end_time)
+  def retrieve_bookings(start_time, end_time, bookings)
+    return bookings.where("start_time <= :start_time AND end_time >= :end_time AND status = 1", start_time: start_time, end_time: end_time)
   end   
   
 end

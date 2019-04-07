@@ -59,6 +59,7 @@ class Booking < ApplicationRecord
     return unless self.errors.blank?
 
     duplicates = Booking.where(item_id: self.item_id, user_id: self.user_id, start_time: self.start_time, end_time: self.end_time, status: 0)
+                        .where.not(id: self.id)
 
     if duplicates.any?
       self.errors.add(:base, "Similar pending booking exists, please check")
