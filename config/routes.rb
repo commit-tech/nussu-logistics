@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources :bookings
+  
+  get '/bookings/calendar', to: 'bookings#calendar'
   resources :items
 
   get 'guide', to: 'static_pages#guide'
