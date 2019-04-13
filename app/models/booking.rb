@@ -57,8 +57,29 @@ class Booking < ApplicationRecord
   end
 
   def enough_items
-    used = Booking.where(item_id: item_id, status: "approved").where('? BETWEEN ? AND ?', self.start_time, start_time, end_time).size
-    available = self.item.quantity - used
+    return unless self.errors.blank?
+
+    approvedBookings = Booking.where(item_id: self.item_id)
+                              .where.not(id: self.id)
+                              .order(:start_time)
+                              .select(:start_time, :end_time, :quantity)
+                              
+    curr = self.start_time
+    maxUsed = 0
+
+    while curr < self.end_time do
+      used = approvedBookings.where("start_time <= :curr AND end_time > :curr", curr: curr).sum(:quantity)
+      maxUsed = maxUsed < used ? used : maxUsed
+
+      next_booking = approvedBookings.where.not("start_time <= :curr", curr: curr).first
+      if next_booking.nil?
+        curr = self.end_time
+      else
+        curr = next_booking.start_time
+      end  
+    end
+
+    available = self.item.quantity - maxUsed
 
     if available < self.quantity then
       self.errors.add(:quantity, "must be at most the number available in time range. Number available in range: #{self.item.quantity}")
