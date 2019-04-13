@@ -15,7 +15,6 @@ RSpec.describe BookingsController, type: :controller do
   describe 'POST bookings#create' do
     before do
       user = create(:user)
-      user.add_role(:technical)
       sign_in user
 
       freeze_time = DateTime.new(2000, 1, 1, 0)
@@ -99,7 +98,6 @@ RSpec.describe BookingsController, type: :controller do
   describe 'POST bookings#create quantity validation' do
     before do
       user = create(:user)
-      user.add_role(:technical)
       sign_in user
 
       freeze_time = DateTime.new(2000, 1, 1, 0)
@@ -193,6 +191,13 @@ RSpec.describe BookingsController, type: :controller do
       end.to change { Booking.find(@booking.id).description }
         .to("I'm super duper Rich")
       should redirect_to bookings_path
+    end
+
+    it 'should not exceed the quantity and redirect' do
+      expect do
+        patch :update, params: { id: @booking.id, booking: { quantity: 3} }
+        assert_template :edit
+      end
     end
 
     it 'should change the quantity and redirect' do
