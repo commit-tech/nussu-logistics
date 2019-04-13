@@ -23,16 +23,14 @@ RSpec.describe UsersController, type: :controller do
     it 'denies access when normal user access another users page' do
       user = create(:user)
       sign_in user
-      expect do
-        get :edit, params: { id: create(:user).id }
+      get :edit, params: { id: create(:user).id }
       should redirect_to(root_path)
     end
     it 'denies access when admin access another users page' do
       user = create(:user)
       user.add_role(:admin)
       sign_in user
-      expect do
-        get :edit, params: { id: create(:user).id }
+      get :edit, params: { id: create(:user).id }
       should redirect_to(root_path)
     end
   end
@@ -75,12 +73,11 @@ RSpec.describe UsersController, type: :controller do
         user = create(:user)
         new_user = create(:user, password: '123456')
         sign_in user
-        expect do
-          get :update, params: { id: new_user.id, user: { password: '1234567',
-                                                          confirmation_password:
-                                                          '1234567',
-                                                          current_password:
-                                                          '123456' } }
+        get :update, params: { id: new_user.id, user: { password: '1234567',
+                                                        confirmation_password:
+                                                        '1234567',
+                                                        current_password:
+                                                        '123456' } }
         should redirect_to(root_path)
       end
     end
