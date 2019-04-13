@@ -39,15 +39,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    my_start = create_date_time_object('start_date', 'start_time_only', booking_params)
-    my_end = create_date_time_object('end_date', 'end_time_only', booking_params)
-
-    custom_hash = { description: booking_params['description'],
-    start_time: my_start,
-    end_time: my_end,
-    quantity: booking_params['quantity'],
-    item_id: booking_params['item_id'] }
-
+    custom_hash = create_custom_hash(booking_params)
     booking = Booking.new(custom_hash)
     booking.status = :pending
     booking.user = current_user
@@ -74,14 +66,7 @@ class BookingsController < ApplicationController
                     notice: "Failed. Booking still in #{@booking.status} state"
       end
     else
-      my_start = create_date_time_object('start_date', 'start_time_only', booking_params)
-      my_end = create_date_time_object('end_date', 'end_time_only', booking_params)
-
-      custom_hash = { description: booking_params['description'],
-      start_time: my_start,
-      end_time: my_end,
-      quantity: booking_params['quantity'],
-      item_id: booking_params['item_id'] }
+      custom_hash = create_custom_hash(booking_params)
       if @booking.update(custom_hash)
         redirect_to bookings_path,
                 notice: "Updated booking"
@@ -115,5 +100,18 @@ class BookingsController < ApplicationController
     my_date_time = DateTime.strptime(concatenate, '%Y-%m-%d %H:%M')
     my_date_time = my_date_time.change(:offset => "+0800")
     my_date_time
+  end
+
+  def create_custom_hash(booking_params)
+      my_start = create_date_time_object('start_date', 'start_time_only', booking_params)
+      my_end = create_date_time_object('end_date', 'end_time_only', booking_params)
+
+      custom_hash = { description: booking_params['description'],
+      start_time: my_start,
+      end_time: my_end,
+      quantity: booking_params['quantity'],
+      item_id: booking_params['item_id'] }
+
+      custom_hash
   end
 end

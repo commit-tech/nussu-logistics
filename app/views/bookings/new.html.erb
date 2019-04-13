@@ -40,7 +40,7 @@
         <tr> 
 
         <tr>
-          <td class="container td-container time"></td>
+          <td class="container td-container time"><b>Start Time</b></td>
           <td>
             <%= date_field(:booking, :start_date, class: "form-control new-booking-form") %>
             <%= time_field(:booking ,:start_time_only, step: 1800, class: "form-control new-booking-form") %>
@@ -48,7 +48,7 @@
         </tr>
 
         <tr>
-          <td class="container td-container time"></td>
+          <td class="container td-container time"><b>End Time</b></td>
           <td>
             <%= date_field(:booking, :end_date, class: "form-control new-booking-form") %>
             <%= time_field(:booking, :end_time_only, step: 1800, class: "form-control new-booking-form") %>
