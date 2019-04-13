@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
   validates :item_id, presence: true
   validates :user_id, presence: true
   validate :duplicate_booking
-  validate :booking_must_be_at_least_one_hour_before, unless: (:skip_start_time_validation || can?(:show_full, User))
+  validate :booking_must_be_at_least_one_hour_before, unless: :skip_start_time_validation
   validate :end_time_must_be_later_than_start_time
   validate :enough_items
 
