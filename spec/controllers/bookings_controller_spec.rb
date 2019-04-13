@@ -15,7 +15,6 @@ RSpec.describe BookingsController, type: :controller do
   describe 'POST bookings#create' do
     before do
       user = create(:user)
-      user.add_role(:technical)
       sign_in user
 
       freeze_time = DateTime.new(2000, 1, 1, 0)
@@ -99,7 +98,6 @@ RSpec.describe BookingsController, type: :controller do
   describe 'POST bookings#create conflict with existing bookings' do
     before do
       user = create(:user)
-      user.add_role(:technical)
       sign_in user
 
       freeze_time = DateTime.new(2000, 1, 1, 0)
@@ -194,7 +192,7 @@ RSpec.describe BookingsController, type: :controller do
       freeze_time = DateTime.new(2000, 1, 1, 0)
       Timecop.freeze(freeze_time)
 
-      @booking = create(:booking)
+      @booking = create(:booking, start_time: "2000-01-01 09:00:00")
     end
 
     it 'should change the description and redirect' do
@@ -240,8 +238,69 @@ RSpec.describe BookingsController, type: :controller do
 
     after do
       Timecop.return
+    end  
+  end  
+
+  describe 'POST bookings#create admin' do
+    before do
+      admin = create(:user)
+      admin.add_role(:admin)
+      sign_in admin
+
+      freeze_time = DateTime.new(2000, 1, 10, 0)
+      Timecop.freeze(freeze_time)
+
+      @item = create(:item)
+    end
+
+    it 'should redirect to bookings_path and create new booking' do
+      post :create, params: { booking:
+                            { item_id: @item.id,
+                              quantity: 1, 
+                              start_time: DateTime.new(2000, 1, 1),
+                              end_time: DateTime.new(2000) + 20.days} }
+      should redirect_to bookings_path
+      expect(Booking.exists?(quantity: 1, item: @item,
+                             start_time: DateTime.new(2000, 1, 1), end_time: DateTime.new(2000) + 20.days)).to be true
+    end
+    
+    after do
+      Timecop.return
     end
   end
+
+  describe 'PATCH bookings#update admin' do
+    before do
+      admin = create(:user)
+      admin.add_role(:admin)
+      sign_in admin
+
+      Timecop.freeze(DateTime.new(2000))
+
+      @booking = create(:booking, status: 0, start_time: "2000-02-05 09:00:00", end_time: "2000-02-05 10:00:00")
+
+      new_freeze_time = DateTime.new(2000, 2, 5, 8, 30)
+      Timecop.freeze(new_freeze_time)
+    end
+
+    it 'should change the status and redirect' do
+      expect do
+        patch :update, params: { id: @booking.id, status: "approved" }
+      end.to change { Booking.find(@booking.id).status }.to("approved")
+    end  
+
+    it 'should change the start_time and redirect' do
+      expect do
+        patch :update, params: { id: @booking.id, booking: { start_time: DateTime.new(2000, 2, 1) }  }
+      end.to change { Booking.find(@booking.id).start_time }.to(DateTime.new(2000, 2, 1))
+    end  
+
+    after do
+      Timecop.return
+    end
+  end
+
+  
 
 
 end
