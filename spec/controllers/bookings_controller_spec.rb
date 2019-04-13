@@ -96,7 +96,7 @@ RSpec.describe BookingsController, type: :controller do
     end
   end
 
-  describe 'POST bookings#create quantity validation' do
+  describe 'POST bookings#create conflict with existing bookings' do
     before do
       user = create(:user)
       user.add_role(:technical)
@@ -110,6 +110,7 @@ RSpec.describe BookingsController, type: :controller do
       @booking2 = create(:booking, item_id: @item.id, start_time: "2000-01-16 09:00:00", end_time: "2000-01-20 10:00:00" )
       @booking3 = create(:booking, item_id: @item.id, start_time: "2000-01-19 09:00:00", end_time: "2000-01-22 10:00:00" )
       @booking4 = create(:booking, item_id: @item.id, quantity: 2, start_time: "2000-02-19 09:00:00", end_time: "2000-02-22 10:00:00" )
+      @booking5 = create(:booking, user_id: user.id, status: 0, item_id: @item.id, start_time: "2000-02-23 09:00:00", end_time: "2000-02-24 10:00:00" )
     end
 
     it 'should redirect to bookings_path and create new booking' do
@@ -159,6 +160,15 @@ RSpec.describe BookingsController, type: :controller do
                               quantity: 1, 
                               start_time: DateTime.new(2000, 2, 18, 9),
                               end_time: DateTime.new(2000, 2, 23, 9) } }  
+      assert_template :new
+      expect(Booking.exists?(description: 'Failed')).to be false
+
+      post :create, params: { booking:
+                            { item_id: @booking5.item_id,
+                              description: 'Failed',
+                              quantity: @booking5.quantity, 
+                              start_time: @booking5.start_time,
+                              end_time: @booking5.end_time } }  
       assert_template :new
       expect(Booking.exists?(description: 'Failed')).to be false
     end
