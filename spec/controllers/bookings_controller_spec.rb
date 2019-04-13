@@ -98,7 +98,6 @@ RSpec.describe BookingsController, type: :controller do
   describe 'POST bookings#create quantity validation' do
     before do
       user = create(:user)
-      user.add_role(:technical)
       sign_in user
 
       freeze_time = DateTime.new(2000, 1, 1, 0)
