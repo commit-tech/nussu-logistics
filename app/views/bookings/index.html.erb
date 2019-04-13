@@ -9,11 +9,19 @@
     <li><%= button_to "Show Approved Bookings", bookings_path, :method => "get", class: "btn btn-large btn-light booking-btn inline", params: {approved_bookings: true} %></li>
     <li><%= button_to "Show Pending Bookings", bookings_path, method: "get", class: "btn btn-large btn-light booking-btn inline" %></li>
     <li><%= button_to "Make New Booking", new_booking_path, method: "get", class: "btn btn-info submit-btn booking-btn inline" %></li>
-  </ul>
+    <li class="dropdown">
+      <a href="javascript:;" class="dropdown-toggle btn btn-info" data-toggle="dropdown" id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+        Filters
+      </a>
 
-  <%= form_tag('/bookings', method: :get) do%>
-    <%= select_tag "items", options_for_select(Item.all.order(:name).map { |i| [i.name, i.id]}, selected: @item_list),  multiple: true, onchange: "this.form.submit();"%>
-  <% end %>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <%= form_tag('/bookings', method: :get) do%>
+          <div><%= select_tag "items", options_for_select(Item.all.order(:name).map { |i| [i.name, i.id]}, selected: @item_list),  multiple: true%></div>
+          <div><%= submit_tag("Filter") %></div>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
 
   <div class="table-responsive">
       <div class="col-md-12 scrollable">

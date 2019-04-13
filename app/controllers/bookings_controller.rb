@@ -32,7 +32,7 @@ class BookingsController < ApplicationController
       @bookings = @bookings.where(
         item_id: @item_list
       ).includes(:user, :item)
-    else 
+    elsif @item_list.nil?
       @item_list = Item.all.pluck(:id)
     end  
   end
@@ -75,8 +75,6 @@ class BookingsController < ApplicationController
         redirect_to bookings_path,
                     notice: "Failed. Booking still in #{@booking.status} state"
       end
-    elsif params[:items]
-      puts 'here'
     else
       if @booking.update(booking_params)
         redirect_to bookings_path,
