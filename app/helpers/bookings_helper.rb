@@ -1,13 +1,6 @@
 module BookingsHelper
   def duration_bookings(date)
-    times = retrieve_period(date)
-    result = []
-    
-
-    times.each_cons(2){ |timing| p timing}
-
-    bookings = Booking.all.where(status: 1)
-    result = result.map{|timing| [timing, retrieve_bookings(timing[0], timing[1], bookings)]}.to_h
+    retrieve_period(date).each_cons(2).map{|timing| [timing, retrieve_bookings(timing[0], timing[1], Booking.all.where(status: 1))]}.to_h
   end  
 
   def retrieve_period(date)

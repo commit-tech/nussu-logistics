@@ -116,6 +116,7 @@ RSpec.describe BookingsHelper, type: :helper do
 
     it 'retrieves correctly' do
       hashes = duration_bookings("2000-01-02")
+      puts hashes
       expect(hashes.size()).to eq 6
 
       timings = retrieve_period("2000-01-02")
