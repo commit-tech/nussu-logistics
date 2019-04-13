@@ -25,7 +25,7 @@ RSpec.describe UsersController, type: :controller do
       sign_in user
       expect do
         get :edit, params: { id: create(:user).id }
-      end.to raise_error(CanCan::AccessDenied)
+      should redirect_to(root_path)
     end
     it 'denies access when admin access another users page' do
       user = create(:user)
@@ -33,7 +33,7 @@ RSpec.describe UsersController, type: :controller do
       sign_in user
       expect do
         get :edit, params: { id: create(:user).id }
-      end.to raise_error(CanCan::AccessDenied)
+      should redirect_to(root_path)
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe UsersController, type: :controller do
                                                           '1234567',
                                                           current_password:
                                                           '123456' } }
-        end.to raise_error(CanCan::AccessDenied)
+        should redirect_to(root_path)
       end
     end
     context 'admin' do
