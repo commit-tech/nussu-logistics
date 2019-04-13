@@ -99,7 +99,7 @@ RSpec.describe BookingsHelper, type: :helper do
 
   end
 
-  describe 'day_bookings' do
+  describe 'duration_bookings' do
     before do
       freeze_time = DateTime.new(2000, 1, 1, 0)
       Timecop.freeze(freeze_time)
@@ -115,7 +115,7 @@ RSpec.describe BookingsHelper, type: :helper do
     end
 
     it 'retrieves correctly' do
-      hashes = day_bookings("2000-01-02")
+      hashes = duration_bookings("2000-01-02")
       expect(hashes.size()).to eq 6
 
       timings = retrieve_period("2000-01-02")
