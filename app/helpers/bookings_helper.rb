@@ -7,14 +7,6 @@ module BookingsHelper
     
 
     times.each.cons(2).map{ |timing| timing[0] if timing[0] == timing[1] }
-   /while idx < sz
-      time1 = times[idx-1]
-      time2 = times[idx]
-      timing = [[time1, time2]]
-
-      result = result + timing
-      idx = idx + 1
-    end/
 
     bookings = Booking.all.where(status: 1)
     result = result.map{|timing| [timing, retrieve_bookings(timing[0], timing[1], bookings)]}.to_h
