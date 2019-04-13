@@ -1,11 +1,8 @@
 module BookingsHelper
-  def day_bookings(date)
+  def duration_bookings(date)
     times = retrieve_period(date)
     sz = times.length
     idx = 1;
-
-    time1 = times[idx-1]
-    time2 = times[idx]
     result = []
     
     while idx < sz
