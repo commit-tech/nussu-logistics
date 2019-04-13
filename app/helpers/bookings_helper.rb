@@ -6,7 +6,7 @@ module BookingsHelper
     result = []
     
 
-    times[sz]each.cons(2).map{ |timing| timing[0] if timing[0] == timing[1] }
+    times.each.cons(2).map{ |timing| timing[0] if timing[0] == timing[1] }
    /while idx < sz
       time1 = times[idx-1]
       time2 = times[idx]
