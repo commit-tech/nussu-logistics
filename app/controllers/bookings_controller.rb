@@ -1,9 +1,11 @@
 class BookingsController < ApplicationController
   def index
+    @bookings = Booking.all
+
     if can?(:show_full, User)
-      @bookings = Booking.all.includes(:user, :item)
+      @bookings = @bookings.includes(:user, :item)
     else
-      @bookings = Booking.where(user: current_user).includes(:user, :item)
+      @bookings = @bookings.where(user: current_user).includes(:user, :item)
     end    
 
     if params[:all_bookings]
@@ -24,6 +26,15 @@ class BookingsController < ApplicationController
         status: "pending"
       ).includes(:user, :item)
     end
+
+    if params[:items]
+      @item_list = params[:items]
+      @bookings = @bookings.where(
+        item_id: @item_list
+      ).includes(:user, :item)
+    else 
+      @item_list = Item.all.pluck(:id)
+    end  
   end
 
   def show
@@ -64,6 +75,8 @@ class BookingsController < ApplicationController
         redirect_to bookings_path,
                     notice: "Failed. Booking still in #{@booking.status} state"
       end
+    elsif params[:items]
+      puts 'here'
     else
       if @booking.update(booking_params)
         redirect_to bookings_path,
