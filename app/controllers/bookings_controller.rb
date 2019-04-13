@@ -45,7 +45,7 @@ class BookingsController < ApplicationController
     custom_hash = { description: booking_params['description'],
     start_time: my_start,
     end_time: my_end,
-    quantity: booking_params['quantity'], 
+    quantity: booking_params['quantity'],
     item_id: booking_params['item_id'] }
 
     booking = Booking.new(custom_hash)
@@ -74,7 +74,15 @@ class BookingsController < ApplicationController
                     notice: "Failed. Booking still in #{@booking.status} state"
       end
     else
-      if @booking.update(booking_params)
+      my_start = create_date_time_object('start_date', 'start_time_only', booking_params)
+      my_end = create_date_time_object('end_date', 'end_time_only', booking_params)
+
+      custom_hash = { description: booking_params['description'],
+      start_time: my_start,
+      end_time: my_end,
+      quantity: booking_params['quantity'],
+      item_id: booking_params['item_id'] }
+      if @booking.update(custom_hash)
         redirect_to bookings_path,
                 notice: "Updated booking"
       else 
