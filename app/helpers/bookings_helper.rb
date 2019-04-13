@@ -4,7 +4,7 @@ module BookingsHelper
     result = []
     
 
-    times.each.cons(2){ |timing| p timing}
+    times.each_cons(2){ |timing| p timing}
 
     bookings = Booking.all.where(status: 1)
     result = result.map{|timing| [timing, retrieve_bookings(timing[0], timing[1], bookings)]}.to_h
