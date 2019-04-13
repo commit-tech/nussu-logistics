@@ -40,9 +40,9 @@ class Booking < ApplicationRecord
   validate :enough_items
 
   attr_accessor :start_date
-  attr_accessor :start_timing
+  attr_accessor :start_time_only
   attr_accessor :end_date
-  attr_accessor :end_timing
+  attr_accessor :end_time_only
 
   def booking_must_be_at_least_one_hour_before
     if self.start_time < DateTime.now + 1.hours
