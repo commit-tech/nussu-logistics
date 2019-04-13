@@ -39,6 +39,11 @@ class Booking < ApplicationRecord
   validate :end_time_must_be_later_than_start_time
   validate :enough_items
 
+  attr_accessor :start_date
+  attr_accessor :start_timing
+  attr_accessor :end_date
+  attr_accessor :end_timing
+
   def booking_must_be_at_least_one_hour_before
     if self.start_time < DateTime.now + 1.hours
       self.errors.add(:booking, 'must be done at least one hour before')
