@@ -31,6 +31,9 @@ gem 'jquery-turbolinks'
 gem 'bootstrap', '>= 4.3.1'
 # Javascript interpreter
 gem 'mini_racer', platforms: :ruby
+# Calendar gem
+gem 'momentjs-rails'
+gem 'fullcalendar-rails'
 
 group :development do
   # Favicon set
