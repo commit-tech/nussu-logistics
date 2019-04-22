@@ -203,6 +203,13 @@ RSpec.describe BookingsController, type: :controller do
       should redirect_to bookings_path
     end
 
+    it 'should not exceed the quantity and redirect' do
+      expect do
+        patch :update, params: { id: @booking.id, booking: { quantity: 3} }
+        assert_template :edit
+      end
+    end
+
     it 'should change the quantity and redirect' do
       expect do
         patch :update, params: { id: @booking.id, booking: { quantity: 2 } }
