@@ -44,21 +44,6 @@ ActiveRecord::Schema.define(version: 20190316171248) do
     t.datetime "updated_at",    :null=>false
   end
 
-  create_table "time_ranges", force: :cascade do |t|
-    t.time     "start_time"
-    t.time     "end_time"
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-  end
-
-  create_table "timeslots", force: :cascade do |t|
-    t.integer  "default_user_id", :index=>{:name=>"index_timeslots_on_default_user_id", :using=>:btree}
-    t.integer  "time_range_id",   :index=>{:name=>"index_timeslots_on_time_range_id", :using=>:btree}
-    t.datetime "created_at",      :null=>false
-    t.datetime "updated_at",      :null=>false
-    t.integer  "day"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  :default=>"", :null=>false, :index=>{:name=>"index_users_on_email", :unique=>true, :using=>:btree}
     t.string   "encrypted_password",     :default=>"", :null=>false
@@ -89,6 +74,4 @@ ActiveRecord::Schema.define(version: 20190316171248) do
 
   add_foreign_key "bookings", "items"
   add_foreign_key "bookings", "users"
-  add_foreign_key "timeslots", "time_ranges"
-  add_foreign_key "timeslots", "users", column: "default_user_id"
 end
