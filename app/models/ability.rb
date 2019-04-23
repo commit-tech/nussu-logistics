@@ -13,6 +13,6 @@ class Ability
   end
 
   def admin
-    can :manage, :all
+    can %i[allocate_roles update_roles destroy], :all
   end
 end

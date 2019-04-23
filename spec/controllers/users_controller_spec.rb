@@ -23,16 +23,15 @@ RSpec.describe UsersController, type: :controller do
     it 'denies access when normal user access another users page' do
       user = create(:user)
       sign_in user
-      expect do
-        get :edit, params: { id: create(:user).id }
-      end.to raise_error(CanCan::AccessDenied)
+      get :edit, params: { id: create(:user).id }
+      should redirect_to(root_path)
     end
-    it 'provides access to admin' do
+    it 'denies access when admin access another users page' do
       user = create(:user)
       user.add_role(:admin)
       sign_in user
       get :edit, params: { id: create(:user).id }
-      should respond_with :ok
+      should redirect_to(root_path)
     end
   end
 
@@ -74,13 +73,12 @@ RSpec.describe UsersController, type: :controller do
         user = create(:user)
         new_user = create(:user, password: '123456')
         sign_in user
-        expect do
-          get :update, params: { id: new_user.id, user: { password: '1234567',
-                                                          confirmation_password:
-                                                          '1234567',
-                                                          current_password:
-                                                          '123456' } }
-        end.to raise_error(CanCan::AccessDenied)
+        get :update, params: { id: new_user.id, user: { password: '1234567',
+                                                        confirmation_password:
+                                                        '1234567',
+                                                        current_password:
+                                                        '123456' } }
+        should redirect_to(root_path)
       end
     end
     context 'admin' do
@@ -95,10 +93,10 @@ RSpec.describe UsersController, type: :controller do
                                                       '1234567',
                                                       current_password:
                                                       '123456' } }
-        end.to change {
+        end.to_not change {
           User.find(user.id).valid_password?('1234567')
-        }.from(false).to(true)
-        should redirect_to(users_path)
+        }.from(false)
+        should redirect_to(root_path)
       end
     end
   end

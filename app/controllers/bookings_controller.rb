@@ -43,6 +43,10 @@ class BookingsController < ApplicationController
     booking = Booking.new(custom_hash)
     booking.status = :pending
     booking.user = current_user
+    
+    if can?(:show_full, User)
+      booking.skip_start_time_validation = true
+    end 
 
     if booking.save
       redirect_to bookings_path,
@@ -58,15 +62,21 @@ class BookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
     if params[:status]
+      @status = @booking.status
+      @booking.skip_start_time_validation = true
       if @booking.update(params.permit(:status))
         redirect_to bookings_path,
                     notice: "#{@booking.status.capitalize} booking successfully"
       else 
         redirect_to bookings_path,
-                    notice: "Failed. Booking still in #{@booking.status} state"
+                    notice: "Failed. Booking still in #{@status} state"
       end
     else
       custom_hash = create_custom_hash(booking_params)
+      if can?(:show_full, User)
+        @booking.skip_start_time_validation = true
+      end  
+
       if @booking.update(custom_hash)
         redirect_to bookings_path,
                 notice: "Updated booking"
