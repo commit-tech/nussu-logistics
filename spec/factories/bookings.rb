@@ -26,10 +26,13 @@
 
 FactoryBot.define do
   factory :booking do
+    association :user, factory: :user
+    association :item, factory: :item
+
     status { 1 }
-    quantity {100}
+    quantity { 1 }
     description { "MyText" }
-    start_time { "2030-02-24 05:00:00" }
-    end_time { "2031-02-24 05:00:00" }
+    start_time { "2000-01-01 09:00:00" }
+    end_time { "2000-01-15 10:00:00" }
   end
 end
