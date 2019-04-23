@@ -39,7 +39,8 @@ class BookingsController < ApplicationController
   end
 
   def create
-    booking = Booking.new(booking_params)
+    custom_hash = create_custom_hash(booking_params)
+    booking = Booking.new(custom_hash)
     booking.status = :pending
     booking.user = current_user
     
@@ -71,11 +72,12 @@ class BookingsController < ApplicationController
                     notice: "Failed. Booking still in #{@status} state"
       end
     else
+      custom_hash = create_custom_hash(booking_params)
       if can?(:show_full, User)
         @booking.skip_start_time_validation = true
       end  
 
-      if @booking.update(booking_params)
+      if @booking.update(custom_hash)
         redirect_to bookings_path,
                 notice: "Updated booking"
       else 
@@ -97,6 +99,29 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:description, :start_time, :end_time, :quantity, :item_id)
+    params.require(:booking).permit(:description, :start_time, :end_time, :quantity, :item_id, 
+      :start_date, :end_date, :start_time_only, :end_time_only)
+  end
+
+  def create_date_time_object(date_only, time_only, booking_params)
+    the_date = booking_params[date_only]
+    the_timing = booking_params[time_only]
+    concatenate = "#{the_date} #{the_timing}"
+    my_date_time = DateTime.strptime(concatenate, '%Y-%m-%d %H:%M')
+    my_date_time = my_date_time.change(:offset => "+0800")
+    my_date_time
+  end
+
+  def create_custom_hash(booking_params)
+      my_start = create_date_time_object('start_date', 'start_time_only', booking_params)
+      my_end = create_date_time_object('end_date', 'end_time_only', booking_params)
+
+      custom_hash = { description: booking_params['description'],
+      start_time: my_start,
+      end_time: my_end,
+      quantity: booking_params['quantity'],
+      item_id: booking_params['item_id'] }
+
+      custom_hash
   end
 end

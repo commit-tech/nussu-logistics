@@ -39,7 +39,14 @@ class Booking < ApplicationRecord
   validate :end_time_must_be_later_than_start_time
   validate :enough_items
 
+<<<<<<< HEAD
+  attr_accessor :start_date
+  attr_accessor :start_time_only
+  attr_accessor :end_date
+  attr_accessor :end_time_only
+=======
   attr_accessor :skip_start_time_validation
+>>>>>>> 58e4749c2e94ecf23dbc34414bc7446a676194cf
 
   def booking_must_be_at_least_one_hour_before
     return unless self.errors.blank?
