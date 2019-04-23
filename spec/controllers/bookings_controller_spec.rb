@@ -27,11 +27,17 @@ RSpec.describe BookingsController, type: :controller do
       post :create, params: { booking:
                             { item_id: @item.id,
                               quantity: 1, 
-                              start_time: DateTime.new(2030),
-                              end_time: DateTime.new(2030) + 10.days} }
+                              start_date: "2030-01-01",
+                              start_time_only: "00:00",
+                              end_date: "2030-01-11",
+                              end_time_only: "00:00"} }
       should redirect_to bookings_path
       expect(Booking.exists?(quantity: 1, item: @item,
-                             start_time: DateTime.new(2030), end_time: DateTime.new(2030) + 10.days)).to be true
+                             start_time: DateTime.strptime("2030-01-01 00:00", '%Y-%m-%d %H:%M')
+                                          .change(:offset => '+0800'),
+                             end_time: DateTime.strptime("2030-01-11 00:00", '%Y-%m-%d %H:%M')
+                                          .change(:offset => '+0800')))
+                             .to be true
     end
 
     it 'should redirect_to new_booking_path and not create new booking' do
