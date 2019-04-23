@@ -264,11 +264,11 @@ RSpec.describe BookingsController, type: :controller do
       post :create, params: { booking:
                             { item_id: @item.id,
                               quantity: 1, 
-                              start_time: DateTime.new(2000, 1, 1),
-                              end_time: DateTime.new(2000) + 20.days} }
+                              start_time: DateTime.new(2100, 1, 1),
+                              end_time: DateTime.new(2100) + 20.days} }
       should redirect_to bookings_path
       expect(Booking.exists?(quantity: 1, item: @item,
-                             start_time: DateTime.new(2000, 1, 1), end_time: DateTime.new(2000) + 20.days)).to be true
+                             start_time: DateTime.new(2100, 1, 1), end_time: DateTime.new(2100) + 20.days)).to be true
     end
     
     after do
@@ -284,7 +284,7 @@ RSpec.describe BookingsController, type: :controller do
 
       Timecop.freeze(DateTime.new(2000))
 
-      @booking = create(:booking, status: 0, start_time: "2000-02-05 09:00:00", end_time: "2000-02-05 10:00:00")
+      @booking = create(:booking, status: 0, start_time: "2100-02-05 09:00:00", end_time: "2100-02-05 10:00:00")
 
       new_freeze_time = DateTime.new(2000, 2, 5, 8, 30)
       Timecop.freeze(new_freeze_time)
@@ -298,8 +298,8 @@ RSpec.describe BookingsController, type: :controller do
 
     it 'should change the start_time and redirect' do
       expect do
-        patch :update, params: { id: @booking.id, booking: { start_time: DateTime.new(2000, 2, 1) }  }
-      end.to change { Booking.find(@booking.id).start_time }.to(DateTime.new(2000, 2, 1))
+        patch :update, params: { id: @booking.id, booking: { start_time: DateTime.new(2100, 2, 1) }  }
+      end.to change { Booking.find(@booking.id).start_time }.to(DateTime.new(2100, 2, 1))
     end  
 
     after do
