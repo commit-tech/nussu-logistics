@@ -93,10 +93,10 @@ RSpec.describe UsersController, type: :controller do
                                                       '1234567',
                                                       current_password:
                                                       '123456' } }
-        end.to change {
+        end.to_not change {
           User.find(user.id).valid_password?('1234567')
-        }.from(false).to(true)
-        should redirect_to(users_path)
+        }.from(false)
+        should redirect_to(root_path)
       end
     end
   end
