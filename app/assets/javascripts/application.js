@@ -20,13 +20,18 @@
 //= require_tree .
 
 function eventCalendar() {
-  var calendar =  $('#calendar').fullCalendar({'defaultView':  'basicWeek', 'events': [
+  var calendar =  $('#calendar').fullCalendar({defaultView:  'basicWeek', events: [
     { // this object will be "parsed" into an Event Object
       title: 'The Title', // a property!
-      start: '2019-04-21', // a property!
-      end: '2019-04-23' // a property! ** see important note below about 'end' **
-    }
-  ], 'editable': true})
+      start: '2019-04-21T10:00:00', // a property!
+      end: '2019-04-23T12:00:00', // a property! ** see important note below about 'end' **
+    }], 
+    header: {
+      left:   'today prev,next',
+      center: '',
+      right:  'month,basicWeek,list'}
+    , editable: true})
+  
   // calendar.changeView('timeGrid')
   return calendar
 };
