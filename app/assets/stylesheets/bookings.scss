@@ -67,6 +67,24 @@
     }
   }
 
+  .dropdown {
+    .dropdown-menu {
+      width: 300px;
+      height: 400px;
+
+      .filter-option {
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 2.5px;
+      }
+
+      .filter-list {
+        width: 200px;
+        height: 300px;
+      }
+    }
+  }
+
 
   .new-booking-table {
     background-color: $cream;
