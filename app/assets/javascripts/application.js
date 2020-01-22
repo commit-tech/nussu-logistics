@@ -10,9 +10,39 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require turbolinks
-//= require jquery3
+//= require jquery
 //= require jquery_ujs
+//= require moment
+//= require fullcalendar
+//= require turbolinks
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+function eventCalendar() {
+  var calendar =  $('#calendar').fullCalendar({defaultView:  'basicWeek', events: [
+    { // this object will be "parsed" into an Event Object
+      title: 'The Title', // a property!
+      start: '2019-04-21T10:00:00', // a property!
+      end: '2019-04-23T12:00:00', // a property! ** see important note below about 'end' **
+    }], 
+    header: {
+      left:   'today prev,next',
+      center: '',
+      right:  'month,basicWeek,list'}
+    , editable: true})
+  
+  // calendar.changeView('timeGrid')
+  return calendar
+};
+
+function clearCalendar() {
+  $('#calendar').fullCalendar('delete'); 
+  $('#calendar').html('');
+};
+
+$(document).on('turbolinks:load', function(){
+  eventCalendar();  
+});
+
+$(document).on('turbolinks:before-cache', clearCalendar);

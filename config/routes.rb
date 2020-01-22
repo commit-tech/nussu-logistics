@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}, via: :get
   root to: 'users#index'
 
   devise_for :users, controllers: { registrations: 'registrations' }
@@ -11,9 +13,10 @@ Rails.application.routes.draw do
       patch 'allocate_roles', to: 'users#update_roles'
       put 'allocate_roles', to: 'users#update_roles'
     end
-  end
+  end 
 
   resources :bookings
+  
   resources :items
 
   get 'guide', to: 'static_pages#guide'
